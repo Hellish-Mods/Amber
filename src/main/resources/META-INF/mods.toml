@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[34,)"
+
+license="CC BY-NC-SA 4.0"
+issueTrackerURL="https://github.com/Hellish-Mods/amber"
+
+[[mods]]
+modId="jade"
+version="${file.jarVersion}"
+
+displayName="Amber"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/amber"
+logoFile="pack.png"
+
+authors="Snownee, Hellish Mods & Modern Modpacks"
+credits="""
+Snownee (Original author)
+G_cat (Coding)
+"""
+
+description="A fork of Jade, which is a fork of HWYLA, which is a fork of WALIA."
+
+[[mods]]
+modId="waila"
+version="${file.jarVersion}"
+displayName="Waila (Jade)"
+authors="Snownee, TehNut, ProfMobius"
+description="You are using Jade, a fork of Hwyla."
