@@ -14,4 +14,6 @@ This is a compatibility-focused fork of the 1.16.5 version of [Jade](https://cur
 
 * FE compatability
 
+![FE](https://user-images.githubusercontent.com/79367505/232852297-defe2066-90be-4117-a761-2052f9158aea.png)
+
 [![MMLogo](https://raw.githubusercontent.com/Modern-Modpacks/assets/main/big_logo.png)](https://modernmodpacks.site)
