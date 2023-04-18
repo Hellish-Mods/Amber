@@ -84,11 +84,6 @@ task deobfJar(type: Jar) {
     archiveName = "${archivesBaseName}-${version}-deobf.${extension}"
 }
 
-artifacts {
-    archives deobfJar
-    archives apiJar
-}
-
 repositories {
     maven {
         name = "jei"
