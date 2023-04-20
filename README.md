@@ -20,4 +20,4 @@ This is a compatibility-focused fork of the 1.16.5 version of [Jade](https://cur
 
 ## Attribution
 
-Amber is a fork of [Jade](https://curseforge.com/minecraft/mc-mods/jade), a mod made by Snownee. We (Hellish Mods) modified .java code files in order to make it more compatible with other mods.
+Amber is a fork of [Jade](https://curseforge.com/minecraft/mc-mods/jade) ([source code](https://github.com/Snownee/Jade)), a mod made by [Snownee](https://legacy.curseforge.com/members/snownee_). We (Hellish Mods) modified .java code files and .json data files in order to make it more compatible with other mods. The original mod and this fork are licensed under [CC-BY-NC-SA 4.0](https://github.com/Snownee/Jade/blob/1.19.4-fabric/LICENSE.md).
