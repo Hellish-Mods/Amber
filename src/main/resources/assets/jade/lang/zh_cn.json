@@ -1,4 +1,5 @@
 {
+  "config.waila.plugin_jade": "琥珀",
   "config.waila.plugin_jade.inventory": "物品容器",
   "jade.locked": "容器已上锁",
   "jade.not_generated": "物品未生成",
@@ -56,5 +57,8 @@
   "config.waila.plugin_jade.player_head": "玩家头颅",
   "config.waila.plugin_jade.profession": "村民职业",
   "config.waila.plugin_jade.show_entity_armor": "实体盔甲",
-  "config.waila.plugin_jade.item_tooltip": "物品工具提示"
+  "config.waila.plugin_jade.item_tooltip": "物品工具提示",
+
+  "config.waila.plugin_jade.forge_energy": "能量",
+  "jade.fe": "FE：%d/%d"
 }
