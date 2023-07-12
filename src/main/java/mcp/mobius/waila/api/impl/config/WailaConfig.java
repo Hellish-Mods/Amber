@@ -1,7 +1,10 @@
 package mcp.mobius.waila.api.impl.config;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -50,6 +53,7 @@ public class WailaConfig {
 		private int maxHeartsPerLine = 10;
 		private FluidMode fluldMode = FluidMode.NONE;
 		private float reachDistance = 0;
+		private ArrayList<String> entityBlacklist = new ArrayList<>();
 
 		public void setDisplayTooltip(boolean displayTooltip) {
 			this.displayTooltip = displayTooltip;
@@ -95,6 +99,10 @@ public class WailaConfig {
 			this.fluldMode = displayFluids ? FluidMode.ANY : FluidMode.NONE;
 		}
 
+		public void setEntityBlacklist(String entityBlacklist) {
+			this.entityBlacklist = new ArrayList<>(Arrays.asList(entityBlacklist.replace(" ", "").split(",")));
+		}
+
 		public boolean shouldDisplayTooltip() {
 			return displayTooltip;
 		}
@@ -137,6 +145,13 @@ public class WailaConfig {
 
 		public float getReachDistance() {
 			return reachDistance;
+		}
+
+		public ArrayList<String> getEntityBlacklist() {
+			return entityBlacklist;
+		}
+		public String getEntityBlacklistAsString() {
+			return String.join(",", entityBlacklist);
 		}
 
 		public void setReachDistance(float reachDistance) {

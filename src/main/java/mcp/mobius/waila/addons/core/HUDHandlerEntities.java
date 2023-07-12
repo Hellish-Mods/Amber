@@ -28,6 +28,7 @@ public class HUDHandlerEntities implements IEntityComponentProvider {
 
 	@Override
 	public void appendHead(List<ITextComponent> tooltip, IEntityAccessor accessor, IPluginConfig config) {
+		if (Waila.CONFIG.get().getGeneral().getEntityBlacklist().contains(accessor.getEntity().getEntityString())) return;
 		((ITaggableList<ResourceLocation, ITextComponent>) tooltip).setTag(HUDHandlerBlocks.OBJECT_NAME_TAG, new StringTextComponent(String.format(Waila.CONFIG.get().getFormatting().getEntityName(), getEntityName(accessor.getEntity()))));
 		if (config.get(PluginCore.CONFIG_SHOW_REGISTRY))
 			((ITaggableList<ResourceLocation, ITextComponent>) tooltip).setTag(HUDHandlerBlocks.REGISTRY_NAME_TAG, new StringTextComponent(accessor.getEntity().getType().getRegistryName().toString()).mergeStyle(TextFormatting.GRAY));
@@ -44,7 +45,7 @@ public class HUDHandlerEntities implements IEntityComponentProvider {
 
 	@Override
 	public void appendBody(List<ITextComponent> tooltip, IEntityAccessor accessor, IPluginConfig config) {
-		if (!(accessor.getEntity() instanceof LivingEntity))
+		if (!(accessor.getEntity() instanceof LivingEntity) || Waila.CONFIG.get().getGeneral().getEntityBlacklist().contains(accessor.getEntity().getEntityString()))
 			return;
 		if (config.get(PluginCore.CONFIG_SHOW_ENTITY_ARMOR))
 			appendArmor((LivingEntity) accessor.getEntity(), tooltip);
@@ -54,7 +55,7 @@ public class HUDHandlerEntities implements IEntityComponentProvider {
 
 	@Override
 	public void appendTail(List<ITextComponent> tooltip, IEntityAccessor accessor, IPluginConfig config) {
-		if (config.get(JadePlugin.HIDE_MOD_NAME))
+		if (config.get(JadePlugin.HIDE_MOD_NAME) || Waila.CONFIG.get().getGeneral().getEntityBlacklist().contains(accessor.getEntity().getEntityString()))
 			return;
 		tooltip.add(new StringTextComponent(String.format(Waila.CONFIG.get().getFormatting().getModName(), ModIdentification.getModName(accessor.getEntity()))));
 	}

@@ -62,5 +62,16 @@
   "config.waila.plugin_jade.profession": "Профессия жителя",
   "config.waila.plugin_jade.show_entity_armor": "Броня сущности",
   "config.waila.plugin_jade.item_tooltip": "Подсказка предмета",
-  "jade.spawner": "%s (%s)"
+  "jade.spawner": "%s (%s)",
+
+  "config.waila.plugin_jade.forge_energy": "Энергия",
+  "jade.fe": "FE: %d/%d",
+  "config.waila.plugin_jade.ae2_channels": "Каналы AE2",
+  "jade.ae2_channels": "Каналы: %d/%d",
+  "config.waila.plugin_jade.create_stress": "Create Нагрузка",
+  "jade.create_stress": "Нагрузка: %d%",
+  "config.waila.plugin_jade.create_speed": "Create Скорость",
+  "jade.create_speed": "Скорость: %d RPM",
+  "config.waila.plugin_jade.fd_mushroom_colony": "Возраст колонии грибов (Farmer's Delight)",
+  "jade.mushroom_colony": "Возраст: %d/%d"
 }

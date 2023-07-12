@@ -1,20 +1,23 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         jcenter()
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
 
-version = new Date().format('dd-MM-yyyy-HH-mm-ss')
-group = 'site.hellishmods.amber'
+version = "${System.env.VERSION}"
+group = 'snownee.jade'
 archivesBaseName = 'amber'
 
 if (System.getenv().BUILD_NUMBER != null) {
@@ -92,10 +95,10 @@ repositories {
     maven {
         url = "https://www.cursemaven.com"
     }
-    //maven {
-    //    name = "tehnut"
-    //    url = "https://maven.tehnut.info"
-    //}
+    maven {
+        name "Modmaven"
+        url "https://modmaven.dev/"
+    }
 }
 
 dependencies {
@@ -103,6 +106,7 @@ dependencies {
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.34'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     compileOnly fg.deobf("mezz.jei:jei-1.16.5:7.7.1.153:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.16.5:7.7.1.153")
@@ -110,7 +114,19 @@ dependencies {
     implementation fg.deobf("curse.maven:lollipop-347954:3232534")
     implementation fg.deobf("curse.maven:powah-352656:3232535")
 
+    implementation fg.deobf("curse.maven:mcjtylib-233105:3848282")
+    implementation fg.deobf("curse.maven:rftoolsbase-326041:3825685")
+    implementation fg.deobf("curse.maven:rftoolspower-290209:3783989")
+
+    implementation fg.deobf("curse.maven:ie-231951:3809596")
+
     implementation fg.deobf("curse.maven:mekanism-268560:3659389")
+    implementation fg.deobf("appeng:appliedenergistics2:8.4.7")
+
+    implementation fg.deobf("curse.maven:flywheel-486392:3535459")
+    implementation fg.deobf("curse.maven:create-328085:3536025")
+    
+    implementation fg.deobf("curse.maven:farmersdelight-398521:3765350")
 	
 	//compile fg.deobf("curse.maven:hwyla:3033593")f3
 	//compile files("Hwyla-1.10.8-B72_1.15.2.jar")

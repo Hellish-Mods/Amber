@@ -16,9 +16,32 @@ authors="Snownee, Hellish Mods & Modern Modpacks"
 credits="""
 Snownee (Original author)
 G_cat (Coding)
+Kasualix (Simplified Chinese translation)
 """
 
 description="A fork of Jade, which is a fork of HWYLA, which is a fork of WALIA."
+
+[[dependencies.amber]]
+    modId="mcjtylib"
+    mandatory=false
+
+    versionRange=","
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.amber]]
+    modId="appliedenergistics2"
+    mandatory=false
+
+    versionRange=","
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.amber]]
+    modId="farmersdelight"
+    mandatory=false
+
+    versionRange=","
+    ordering="NONE"
+    side="BOTH"
 
 [[mods]]
 modId="waila"
