@@ -66,4 +66,12 @@
 
   "config.waila.plugin_jade.forge_energy": "Energie",
   "jade.fe": "FE: %d/%d"
+  "config.waila.plugin_jade.ae2_channels": "AE2 Kanäle",
+  "jade.ae2_channels": "Kanäle: %d/%d",
+  "config.waila.plugin_jade.create_stress": "Create Maschinenstress",
+  "jade.create_stress": "Maschinenstress: %d%",
+  "config.waila.plugin_jade.create_speed": "Create Geschwindigkeit",
+  "jade.create_speed": "Geschwindigkeit: %d RPM",
+  "config.waila.plugin_jade.fd_mushroom_colony": "Farmer's Delight Alter der Pilzkolonie",
+  "jade.mushroom_colony": "Alter: %d/%d"
 }
