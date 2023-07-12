@@ -20,7 +20,11 @@ This is a compatibility-focused fork of the 1.16.5 version of [Jade](https://cur
 
 * AE2 Channels
 
+![image](https://github.com/Hellish-Mods/Amber/assets/79367505/a49bc576-1625-4cf9-ba26-6ed511465f40)
+
 * Farmer's Delight Mushroom Colony Age
+
+![image](https://github.com/Hellish-Mods/Amber/assets/79367505/1e9aaa1d-30b6-45bb-86db-f0dc7412e9ca)
 
 * ~~Create Speed & Stress~~ **NYI**
 
