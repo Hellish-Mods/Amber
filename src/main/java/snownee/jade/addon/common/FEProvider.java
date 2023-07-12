@@ -15,6 +15,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.ModList;
 import snownee.jade.JadePlugin;
 
 public class FEProvider implements IComponentProvider, IServerDataProvider<TileEntity> {
@@ -33,7 +34,7 @@ public class FEProvider implements IComponentProvider, IServerDataProvider<TileE
         Long storedEnergy = null;
         Long maxEnergy = null;
 
-		if (te instanceof IBigPower) {
+		if (ModList.get().isLoaded("mcjtylib") && te instanceof IBigPower) {
             IBigPower energy = (IBigPower)te;
             storedEnergy = energy.getStoredPower();
             maxEnergy = energy.getCapacity();

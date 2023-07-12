@@ -32,7 +32,7 @@ public class ChannelProvider implements IComponentProvider, IServerDataProvider<
 
     @Override
 	public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, TileEntity te) {
-        if (!(te instanceof IPartHost)) return;
+        if (!ModList.get().isLoaded("appliedenergistics2") || !(te instanceof IPartHost)) return;
         BlockPos pos = te.getPos();
         IPart part = ((IPartHost)te).selectPart(player.pick(20, 0, false).getHitVec().add(-pos.getX(), -pos.getY(), -pos.getZ())).part;
 

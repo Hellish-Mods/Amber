@@ -196,9 +196,11 @@ public class JadePlugin implements IWailaPlugin {
 		registrar.registerBlockDataProvider(FEProvider.INSTANCE, Block.class);
 		registrar.addConfig(FORGE_ENERGY, true);
 
-		registrar.registerComponentProvider(ChannelProvider.INSTANCE, TooltipPosition.BODY, Block.class);
-		registrar.registerBlockDataProvider(ChannelProvider.INSTANCE, Block.class);
-		registrar.addConfig(AE2_CHANNELS, ModList.get().isLoaded("appliedenergistics2"));
+		if (ModList.get().isLoaded("appliedenergistics2")) {
+			registrar.registerComponentProvider(ChannelProvider.INSTANCE, TooltipPosition.BODY, Block.class);
+			registrar.registerBlockDataProvider(ChannelProvider.INSTANCE, Block.class);
+			registrar.addConfig(AE2_CHANNELS, true);
+		}
 
 		// registrar.registerComponentProvider(StressProvider.INSTANCE, TooltipPosition.BODY, KineticBlock.class);
 		// registrar.registerBlockDataProvider(StressProvider.INSTANCE, KineticBlock.class);
@@ -207,8 +209,10 @@ public class JadePlugin implements IWailaPlugin {
 		// registrar.registerBlockDataProvider(SpeedProvider.INSTANCE, KineticBlock.class);
 		// registrar.addConfig(CREATE_SPEED, ModList.get().isLoaded("create"));
 
-		registrar.registerComponentProvider(MushroomColonyAgeProvider.INSTANCE, TooltipPosition.BODY, MushroomColonyBlock.class);
-		registrar.addConfig(MUSHROOM_COLONY, ModList.get().isLoaded("farmersdelight"));
+		if (ModList.get().isLoaded("farmersdelight")) {
+			registrar.registerComponentProvider(MushroomColonyAgeProvider.INSTANCE, TooltipPosition.BODY, MushroomColonyBlock.class);
+			registrar.addConfig(MUSHROOM_COLONY, true);
+		}
 	}
 
 }
