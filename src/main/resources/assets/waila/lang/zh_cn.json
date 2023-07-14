@@ -45,6 +45,8 @@
   "config.waila.tts": "语音复述",
   "config.waila.tts_desc": "使用系统讲述人读出实体和方块名",
   "config.waila.reach_distance": "触及范围延申",
+  "config.waila.entity_blacklist": "实体黑名单",
+  "config.waila.entity_blacklist_desc": "信息框不会为此处的实体显示，逗号分隔",
 
   "config.waila.overlay": "显示",
   "config.waila.overlay_pos_x": "水平比例",
