@@ -47,6 +47,8 @@
   "config.waila.tts": "Enable TTS",
   "config.waila.tts_desc": "Read out block and entity names with the system's text to speech processor",
   "config.waila.reach_distance": "Extended Reach",
+  "config.waila.block_blacklist": "Block Blacklist",
+  "config.waila.block_blacklist_desc": "Blocks that will be blacklisted from the info box, comma separated",
   "config.waila.entity_blacklist": "Entity Blacklist",
   "config.waila.entity_blacklist_desc": "Entities that will be blacklisted from the info box, comma separated",
 

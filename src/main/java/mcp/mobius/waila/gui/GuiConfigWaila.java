@@ -46,6 +46,7 @@ public class GuiConfigWaila extends GuiOptions {
 					options.add(new OptionsEntryValueEnum<>("display_item", WailaConfig.IconMode.values(), general.getIconMode(), general::setIconMode));
 					options.add(new OptionsEntryValueSlider("reach_distance", general.getReachDistance(), general::setReachDistance, 0, 20));
 					options.add(new OptionsEntryValueBoolean("tts", general.shouldEnableTextToSpeech(), general::setEnableTextToSpeech));
+					options.add(new OptionsEntryValueInput<>("block_blacklist", general.getBlockBlacklistAsString(), general::setBlockBlacklist));
 					options.add(new OptionsEntryValueInput<>("entity_blacklist", general.getEntityBlacklistAsString(), general::setEntityBlacklist));
 					return options;
 				}

@@ -16,17 +16,17 @@ import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.ModList;
-import snownee.jade.JadePlugin;
+import snownee.jade.AmberPlugin;
 
 public class FEProvider implements IComponentProvider, IServerDataProvider<TileEntity> {
     public static final FEProvider INSTANCE = new FEProvider();
 
     @Override
     public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (!config.get(JadePlugin.FORGE_ENERGY) || accessor.getBlock().asItem().getRegistryName().getNamespace().equals("mekanism") || accessor.getTileEntity()==null || !accessor.getTileEntity().getCapability(CapabilityEnergy.ENERGY).isPresent()) return;
+        if (!config.get(AmberPlugin.FORGE_ENERGY) || accessor.getBlock().asItem().getRegistryName().getNamespace().equals("mekanism") || accessor.getTileEntity()==null || !accessor.getTileEntity().getCapability(CapabilityEnergy.ENERGY).isPresent()) return;
 
         CompoundNBT tag = accessor.getServerData();
-        if(tag.contains("storedEnergy") && tag.contains("maxEnergy")) tooltip.add(new TranslationTextComponent("jade.fe", tag.getLong("storedEnergy"), tag.getLong("maxEnergy")));
+        if(tag.contains("storedEnergy") && tag.contains("maxEnergy")) tooltip.add(new TranslationTextComponent("amber.fe", tag.getLong("storedEnergy"), tag.getLong("maxEnergy")));
     }
 
     @Override

@@ -71,7 +71,7 @@ public class OverlayRenderer {
 		if (mc.gameSettings.showDebugInfo && Waila.CONFIG.get().getGeneral().shouldHideFromDebug())
 			return;
 
-		if (RayTracing.INSTANCE.getTarget().getType() == RayTraceResult.Type.BLOCK)
+		if (RayTracing.INSTANCE.getTarget().getType() == RayTraceResult.Type.BLOCK && !Waila.CONFIG.get().getGeneral().getBlockBlacklist().contains(RayTracing.INSTANCE.getTargetStack().getItem().getRegistryName().toString()))
 			renderOverlay(WailaTickHandler.instance().tooltip, new MatrixStack());
 
 		if (RayTracing.INSTANCE.getTarget().getType() == RayTraceResult.Type.ENTITY && PluginConfig.INSTANCE.get(PluginCore.CONFIG_SHOW_ENTITY))

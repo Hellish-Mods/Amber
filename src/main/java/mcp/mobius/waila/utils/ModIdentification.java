@@ -36,7 +36,7 @@ public class ModIdentification {
 	}
 
 	public static String getModName(String namespace) {
-		return NAMES.getOrDefault(namespace, "Minecraft");
+		return NAMES.getOrDefault(namespace, namespace);
 	}
 
 	public static String getModName(ResourceLocation id) {

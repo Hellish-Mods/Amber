@@ -4,7 +4,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -53,6 +52,7 @@ public class WailaConfig {
 		private int maxHeartsPerLine = 10;
 		private FluidMode fluldMode = FluidMode.NONE;
 		private float reachDistance = 0;
+		private ArrayList<String> blockBlacklist = new ArrayList<>();
 		private ArrayList<String> entityBlacklist = new ArrayList<>();
 
 		public void setDisplayTooltip(boolean displayTooltip) {
@@ -99,8 +99,12 @@ public class WailaConfig {
 			this.fluldMode = displayFluids ? FluidMode.ANY : FluidMode.NONE;
 		}
 
+		public void setBlockBlacklist(String blockBlacklist) {
+			this.blockBlacklist = new ArrayList<>(Arrays.asList(blockBlacklist.replaceAll(" ", "").split(",")));
+		}
+
 		public void setEntityBlacklist(String entityBlacklist) {
-			this.entityBlacklist = new ArrayList<>(Arrays.asList(entityBlacklist.replace(" ", "").split(",")));
+			this.entityBlacklist = new ArrayList<>(Arrays.asList(entityBlacklist.replaceAll(" ", "").split(",")));
 		}
 
 		public boolean shouldDisplayTooltip() {
@@ -145,6 +149,13 @@ public class WailaConfig {
 
 		public float getReachDistance() {
 			return reachDistance;
+		}
+
+		public ArrayList<String> getBlockBlacklist() {
+			return blockBlacklist;
+		}
+		public String getBlockBlacklistAsString() {
+			return String.join(",", blockBlacklist);
 		}
 
 		public ArrayList<String> getEntityBlacklist() {

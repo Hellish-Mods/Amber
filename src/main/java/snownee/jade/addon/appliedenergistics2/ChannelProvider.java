@@ -17,17 +17,17 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.ModList;
-import snownee.jade.JadePlugin;
+import snownee.jade.AmberPlugin;
 
 public class ChannelProvider implements IComponentProvider, IServerDataProvider<TileEntity> {
     public static final ChannelProvider INSTANCE = new ChannelProvider();
 
     @Override
     public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (!config.get(JadePlugin.AE2_CHANNELS) || !ModList.get().isLoaded("appliedenergistics2") || accessor.getTileEntity()==null || !(accessor.getTileEntity() instanceof IPartHost)) return;
+        if (!config.get(AmberPlugin.AE2_CHANNELS) || !ModList.get().isLoaded("appliedenergistics2") || accessor.getTileEntity()==null || !(accessor.getTileEntity() instanceof IPartHost)) return;
 
         CompoundNBT tag = accessor.getServerData();
-        if(tag.contains("usedChannels") && tag.contains("maxChannels")) tooltip.add(new TranslationTextComponent("jade.ae2_channels", tag.getInt("usedChannels"), tag.getInt("maxChannels"))); // TODO: fix
+        if(tag.contains("usedChannels") && tag.contains("maxChannels")) tooltip.add(new TranslationTextComponent("amber.ae2_channels", tag.getInt("usedChannels"), tag.getInt("maxChannels")));
     }
 
     @Override

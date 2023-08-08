@@ -59,14 +59,14 @@
   "config.waila.plugin_jade.show_entity_armor": "实体盔甲",
   "config.waila.plugin_jade.item_tooltip": "物品工具提示",
 
-  "config.waila.plugin_jade.forge_energy": "FE能量",
-  "jade.fe": "FE：%d/%d",
-  "config.waila.plugin_jade.ae2_channels": "AE2频道数",
-  "jade.ae2_channels": "频道数：%d/%d",
-  "config.waila.plugin_jade.create_stress": "机械动力机械应力",
-  "jade.create_stress": "应力：%d%",
-  "config.waila.plugin_jade.create_speed": "机械动力机械转速",
-  "jade.create_speed": "机械转速：%d RPM",
-  "config.waila.plugin_jade.fd_mushroom_colony": "农夫乐事蘑菇菌落生长阶段",
-  "jade.mushroom_colony": "生长阶段：%d/%d"
+  "config.waila.plugin_amber.forge_energy": "FE能量",
+  "amber.fe": "FE：%d/%d",
+  "config.waila.plugin_amber.ae2_channels": "AE2频道数",
+  "amber.ae2_channels": "频道数：%d/%d",
+  "config.waila.plugin_amber.create_stress": "机械动力机械应力",
+  "amber.create_stress": "应力：%d%",
+  "config.waila.plugin_amber.create_speed": "机械动力机械转速",
+  "amber.create_speed": "机械转速：%d RPM",
+  "config.waila.plugin_amber.fd_mushroom_colony": "农夫乐事蘑菇菌落生长阶段",
+  "amber.mushroom_colony": "生长阶段：%d/%d"
 }

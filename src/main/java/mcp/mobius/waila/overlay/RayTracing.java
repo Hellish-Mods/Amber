@@ -21,6 +21,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
@@ -36,6 +37,7 @@ import net.minecraft.util.math.RayTraceContext.FluidMode;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -138,6 +140,12 @@ public class RayTracing {
 		} else {
 			if (target.isInvisible())
 				return false;
+		}
+		if (!target.hasCustomName() && target.getName() instanceof TranslationTextComponent && !I18n.hasKey(((TranslationTextComponent)target.getName()).getKey())) {
+			return false;
+		}
+		if (Waila.CONFIG.get().getGeneral().getEntityBlacklist().contains(target.getEntityString())) {
+			return false;
 		}
 		return true;
 	}

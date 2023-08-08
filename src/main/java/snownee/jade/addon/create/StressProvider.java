@@ -11,17 +11,17 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ModList;
-import snownee.jade.JadePlugin;
+import snownee.jade.AmberPlugin;
 
 public class StressProvider implements IComponentProvider {
     public static final StressProvider INSTANCE = new StressProvider();
 
     @Override
     public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (!config.get(JadePlugin.CREATE_STRESS) || !ModList.get().isLoaded("create") || accessor.getTileEntity()==null || !(accessor.getTileEntity() instanceof KineticTileEntity)) return;
+        if (!config.get(AmberPlugin.CREATE_STRESS) || !ModList.get().isLoaded("create") || accessor.getTileEntity()==null || !(accessor.getTileEntity() instanceof KineticTileEntity)) return;
 
         KineticTileEntity kineticTile = (KineticTileEntity)accessor.getTileEntity();
-        tooltip.add(new TranslationTextComponent("jade.create_stress", (kineticTile.getOrCreateNetwork().calculateStress()/kineticTile.getOrCreateNetwork().calculateCapacity())*100));
+        tooltip.add(new TranslationTextComponent("amber.create_stress", (kineticTile.getOrCreateNetwork().calculateStress()/kineticTile.getOrCreateNetwork().calculateCapacity())*100));
         if (kineticTile.isOverStressed()) tooltip.add(new TranslationTextComponent("create.tooltip.stressImpact.overstressed").mergeStyle(TextFormatting.RED));
     }
 }

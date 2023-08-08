@@ -8,7 +8,7 @@ import mcp.mobius.waila.api.IPluginConfig;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ModList;
-import snownee.jade.JadePlugin;
+import snownee.jade.AmberPlugin;
 import vectorwing.farmersdelight.blocks.MushroomColonyBlock;
 
 public class MushroomColonyAgeProvider implements IComponentProvider {
@@ -16,8 +16,8 @@ public class MushroomColonyAgeProvider implements IComponentProvider {
 
     @Override
     public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (!config.get(JadePlugin.MUSHROOM_COLONY) || !ModList.get().isLoaded("farmersdelight") || !(accessor.getBlock() instanceof MushroomColonyBlock)) return;
+        if (!config.get(AmberPlugin.MUSHROOM_COLONY) || !ModList.get().isLoaded("farmersdelight") || !(accessor.getBlock() instanceof MushroomColonyBlock)) return;
 
-        tooltip.add(new TranslationTextComponent("jade.mushroom_colony", accessor.getBlockState().get(((MushroomColonyBlock)accessor.getBlock()).getAgeProperty()), ((MushroomColonyBlock)accessor.getBlock()).getMaxAge()));
+        tooltip.add(new TranslationTextComponent("amber.mushroom_colony", accessor.getBlockState().get(((MushroomColonyBlock)accessor.getBlock()).getAgeProperty()), ((MushroomColonyBlock)accessor.getBlock()).getMaxAge()));
     }
 }
