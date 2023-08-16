@@ -47,6 +47,8 @@
   "config.waila.tts": "Activar TTS",
   "config.waila.tts_desc": "Leer nombres de bloques y entidades con el procesador de texto a voz del sistema",
   "config.waila.reach_distance": "Alcance extendido",
+  "config.waila.block_blacklist": "Lista negra de bloques",
+  "config.waila.block_blacklist_desc": "Bloques que serán puestos en la lista negra del cuadro de información, separados por comas",
   "config.waila.entity_blacklist": "Lista negra de entidades",
   "config.waila.entity_blacklist_desc": "Entidades que serán puestas en la lista negra del cuadro de información, separadas por comas",
 
