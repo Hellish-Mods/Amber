@@ -38,6 +38,8 @@
   "config.waila.display_item_desc": "Отображает предмет, получаемый из блока",
   "config.waila.tts": "Включить TTS",
   "config.waila.tts_desc": "Читает отображаемый подсказкой текст используя системный речевой модуль",
+  "config.waila.block_blacklist": "Чёрный список блоков",
+  "config.waila.block_blacklist_desc": "Список блоков, информация о которых НЕ БУДЕТ показана. Для разделения используйте запятую",
   "config.waila.entity_blacklist": "Чёрный список существ",
   "config.waila.entity_blacklist_desc": "Список существ, информация о которых НЕ БУДЕТ показана. Для разделения используйте запятую",
 
