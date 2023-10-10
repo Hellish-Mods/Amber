@@ -22,6 +22,6 @@ public class StressProvider implements IComponentProvider {
 
         KineticTileEntity kineticTile = (KineticTileEntity)accessor.getTileEntity();
         tooltip.add(new TranslationTextComponent("amber.create_stress", (kineticTile.getOrCreateNetwork().calculateStress()/kineticTile.getOrCreateNetwork().calculateCapacity())*100));
-        if (kineticTile.isOverStressed()) tooltip.add(new TranslationTextComponent("create.tooltip.stressImpact.overstressed").mergeStyle(TextFormatting.RED));
+        if (kineticTile.isOverStressed()) tooltip.add(new TranslationTextComponent("create.tooltip.stressImpact.overstressed").withStyle(TextFormatting.RED));
     }
 }

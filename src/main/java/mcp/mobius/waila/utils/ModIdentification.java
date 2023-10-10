@@ -53,7 +53,7 @@ public class ModIdentification {
 
 	public static String getModName(Entity entity) {
 		if (entity instanceof PaintingEntity) {
-			PaintingType art = ((PaintingEntity) entity).art;
+			PaintingType art = ((PaintingEntity) entity).motive;
 			if (art != null) {
 				return getModName(art.getRegistryName().getNamespace());
 			}

@@ -42,33 +42,33 @@ public class OverlayRenderer {
 		if (!Waila.CONFIG.get().getGeneral().shouldDisplayTooltip())
 			return;
 
-		if (Waila.CONFIG.get().getGeneral().getDisplayMode() == WailaConfig.DisplayMode.HOLD_KEY && !WailaClient.showOverlay.getKeyBinding().isKeyDown())
+		if (Waila.CONFIG.get().getGeneral().getDisplayMode() == WailaConfig.DisplayMode.HOLD_KEY && !WailaClient.showOverlay.getKeyBinding().isDown())
 			return;
 
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.world == null)
+		if (mc.level == null)
 			return;
 
 		if (RayTracing.INSTANCE.getTarget() == null)
 			return;
 
-		if (mc.currentScreen != null) {
-			if (!(mc.currentScreen instanceof GuiOptions)) {
+		if (mc.screen != null) {
+			if (!(mc.screen instanceof GuiOptions)) {
 				return;
 			} else {
 				Rectangle position = WailaTickHandler.instance().tooltip.getPosition();
-				double x = mc.mouseHelper.getMouseX() * (double) mc.getMainWindow().getScaledWidth() / mc.getMainWindow().getWidth();
-				double y = mc.mouseHelper.getMouseY() * (double) mc.getMainWindow().getScaledHeight() / mc.getMainWindow().getHeight();
+				double x = mc.mouseHandler.xpos() * (double) mc.getWindow().getGuiScaledWidth() / mc.getWindow().getWidth();
+				double y = mc.mouseHandler.ypos() * (double) mc.getWindow().getGuiScaledHeight() / mc.getWindow().getHeight();
 				if (position.contains(x, y)) {
 					return;
 				}
 			}
 		}
 
-		if (mc.ingameGUI.getTabList().visible || mc.loadingGui != null || !Minecraft.isGuiEnabled())
+		if (mc.gui.getTabList().visible || mc.overlay != null || !Minecraft.renderNames())
 			return;
 
-		if (mc.gameSettings.showDebugInfo && Waila.CONFIG.get().getGeneral().shouldHideFromDebug())
+		if (mc.options.renderDebug && Waila.CONFIG.get().getGeneral().shouldHideFromDebug())
 			return;
 
 		if (RayTracing.INSTANCE.getTarget().getType() == RayTraceResult.Type.BLOCK && !Waila.CONFIG.get().getGeneral().getBlockBlacklist().contains(RayTracing.INSTANCE.getTargetStack().getItem().getRegistryName().toString()))
@@ -82,25 +82,25 @@ public class OverlayRenderer {
 		RenderSystem.pushMatrix();
 		RenderSystem.rotatef(-30.0F, 0.0F, 1.0F, 0.0F);
 		RenderSystem.rotatef(165.0F, 1.0F, 0.0F, 0.0F);
-		RenderHelper.enableStandardItemLighting();
+		RenderHelper.turnBackOn();
 		RenderSystem.popMatrix();
 	}
 
 	public static void renderOverlay(Tooltip tooltip, MatrixStack matrixStack) {
-		Minecraft.getInstance().getProfiler().startSection("Waila Overlay");
+		Minecraft.getInstance().getProfiler().push("Waila Overlay");
 		RenderContext.matrixStack = matrixStack;
-		matrixStack.push();
+		matrixStack.pushPose();
 		saveGLState();
 
 		WailaRenderEvent.Pre preEvent = new WailaRenderEvent.Pre(DataAccessor.INSTANCE, tooltip.getPosition());
 		if (MinecraftForge.EVENT_BUS.post(preEvent)) {
 			loadGLState();
-			matrixStack.pop();
+			matrixStack.popPose();
 			return;
 		}
 
 		RenderSystem.disableRescaleNormal();
-		RenderHelper.disableStandardItemLighting();
+		RenderHelper.turnBackOn();
 		RenderSystem.disableLighting();
 		RenderSystem.disableDepthTest();
 
@@ -143,8 +143,8 @@ public class OverlayRenderer {
 
 		loadGLState();
 		RenderSystem.enableDepthTest();
-		matrixStack.pop();
-		Minecraft.getInstance().getProfiler().endSection();
+		matrixStack.popPose();
+		Minecraft.getInstance().getProfiler().pop();
 	}
 
 	public static void saveGLState() {
@@ -168,12 +168,12 @@ public class OverlayRenderer {
 			RenderSystem.disableLighting();
 
 		if (hasLight0)
-			GlStateManager.enableLight(0);
+			GlStateManager._enableLight(0);
 		else
 		//GlStateManager.disableLight(0);
 
 		if (hasLight1)
-			GlStateManager.enableLight(1);
+			GlStateManager._enableLight(1);
 		else
 		//GlStateManager.disableLight(1);
 

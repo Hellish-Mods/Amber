@@ -19,10 +19,10 @@ public class PaintingProvider implements IEntityComponentProvider {
 			return;
 		}
 		PaintingEntity painting = (PaintingEntity) accessor.getEntity();
-		if (painting.art == null) {
+		if (painting.motive == null) {
 			return;
 		}
-		String name = painting.art.getRegistryName().getPath().replace('_', ' ');
+		String name = painting.motive.getRegistryName().getPath().replace('_', ' ');
 		tooltip.add(new StringTextComponent(name));
 	}
 

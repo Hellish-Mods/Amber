@@ -30,10 +30,10 @@ public class CommandBlockProvider implements IComponentProvider, IServerDataProv
 
 	@Override
 	public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, TileEntity te) {
-		if (te == null || !player.canUseCommandBlock()) {
+		if (te == null || !player.canUseGameMasterBlocks()) {
 			return;
 		}
-		CommandBlockLogic logic = ((CommandBlockTileEntity) te).getCommandBlockLogic();
+		CommandBlockLogic logic = ((CommandBlockTileEntity) te).getCommandBlock();
 		String command = logic.getCommand();
 		if (command.isEmpty()) {
 			return;

@@ -33,7 +33,7 @@ public class MessageServerPing {
 		Map<ResourceLocation, Boolean> temp = Maps.newHashMap();
 		for (int i = 0; i < size; i++) {
 			int idLength = buffer.readInt();
-			ResourceLocation id = new ResourceLocation(buffer.readString(idLength));
+			ResourceLocation id = new ResourceLocation(buffer.readUtf(idLength));
 			boolean value = buffer.readBoolean();
 			temp.put(id, value);
 		}
@@ -45,7 +45,7 @@ public class MessageServerPing {
 		buffer.writeInt(message.forcedKeys.size());
 		message.forcedKeys.forEach((k, v) -> {
 			buffer.writeInt(k.toString().length());
-			buffer.writeString(k.toString());
+			buffer.writeUtf(k.toString());
 			buffer.writeBoolean(v);
 		});
 	}

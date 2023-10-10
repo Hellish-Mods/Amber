@@ -40,7 +40,7 @@ public class TooltipRendererStack implements ITooltipRenderer {
 
 		CompoundNBT stackTag = null;
 		try {
-			stackTag = JsonToNBT.getTagFromJson(tag.getString("nbt"));
+			stackTag = JsonToNBT.parseTag(tag.getString("nbt"));
 		} catch (CommandSyntaxException e) {
 			// No-op
 		}

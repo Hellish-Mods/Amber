@@ -17,7 +17,7 @@ public class JadeClientPlugin implements IWailaPlugin {
 	@Override
 	public void register(IRegistrar registrar) {
 		if (FMLEnvironment.dist.isClient()) {
-			((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(HarvestToolProvider.INSTANCE);
+			((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).registerReloadListener(HarvestToolProvider.INSTANCE);
 			registrar.registerTooltipRenderer(Renderables.BORDER, new BoxTooltipRenderer());
 			registrar.registerTooltipRenderer(Renderables.OFFSET_TEXT, new StringTooltipRenderer());
 			registrar.registerTooltipRenderer(Renderables.SUB, new SubStringTooltipRenderer());

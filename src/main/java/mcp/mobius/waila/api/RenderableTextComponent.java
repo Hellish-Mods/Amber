@@ -39,7 +39,7 @@ public class RenderableTextComponent extends StringTextComponent {
 			list.forEach(t -> {
 				StringNBT stringTag = (StringNBT) t;
 				try {
-					CompoundNBT tag = JsonToNBT.getTagFromJson(stringTag.getString());
+					CompoundNBT tag = JsonToNBT.parseTag(stringTag.toString());
 					ResourceLocation id = new ResourceLocation(tag.getString("id"));
 					CompoundNBT dataTag = tag.getCompound("data");
 					renderers.add(new RenderContainer(id, dataTag));
@@ -58,14 +58,14 @@ public class RenderableTextComponent extends StringTextComponent {
 
 	private CompoundNBT getData() {
 		try {
-			return JsonToNBT.getTagFromJson(getString());
+			return JsonToNBT.parseTag(getString());
 		} catch (CommandSyntaxException e) {
 			return new CompoundNBT();
 		}
 	}
 
 	@Override
-	public IFormattableTextComponent appendSibling(ITextComponent sibling) {
+	public IFormattableTextComponent append(ITextComponent sibling) {
 		throw new UnsupportedOperationException();
 	}
 

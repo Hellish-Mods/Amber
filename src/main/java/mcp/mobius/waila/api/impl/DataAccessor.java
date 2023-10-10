@@ -26,7 +26,7 @@ public class DataAccessor implements ICommonAccessor, IDataAccessor, IEntityAcce
 	public RayTraceResult hitResult;
 	public Vector3d renderingvec = null;
 	public Block block = Blocks.AIR;
-	public BlockState state = Blocks.AIR.getDefaultState();
+	public BlockState state = Blocks.AIR.defaultBlockState();
 	public BlockPos pos = BlockPos.ZERO;
 	public ResourceLocation blockRegistryName = Blocks.AIR.getRegistryName();
 	public TileEntity tileEntity;
@@ -47,10 +47,10 @@ public class DataAccessor implements ICommonAccessor, IDataAccessor, IEntityAcce
 		this.hitResult = hit;
 
 		if (this.hitResult.getType() == RayTraceResult.Type.BLOCK) {
-			this.pos = ((BlockRayTraceResult) this.hitResult).getPos();
+			this.pos = ((BlockRayTraceResult) this.hitResult).getBlockPos();
 			this.state = this.world.getBlockState(this.pos);
 			this.block = this.state.getBlock();
-			TileEntity tileEntity = this.world.getTileEntity(this.pos);
+			TileEntity tileEntity = this.world.getBlockEntity(this.pos);
 			if (this.tileEntity != tileEntity) {
 				this.tileEntity = tileEntity;
 				this.serverData = null;
@@ -66,17 +66,17 @@ public class DataAccessor implements ICommonAccessor, IDataAccessor, IEntityAcce
 				this.serverData = null;
 				this.timeLastUpdate = System.currentTimeMillis() - MetaDataProvider.rateLimiter;
 			}
-			this.pos = new BlockPos(entity.getPositionVec());
-			this.state = Blocks.AIR.getDefaultState();
+			this.pos = new BlockPos(entity.position());
+			this.state = Blocks.AIR.defaultBlockState();
 			this.block = Blocks.AIR;
 			this.tileEntity = null;
 			this.stack = ItemStack.EMPTY;
 		}
 
 		if (viewEntity != null) {
-			double px = viewEntity.prevPosX + (viewEntity.getPositionVec().x - viewEntity.prevPosX) * partialTicks;
-			double py = viewEntity.prevPosY + (viewEntity.getPositionVec().y - viewEntity.prevPosY) * partialTicks;
-			double pz = viewEntity.prevPosZ + (viewEntity.getPositionVec().z - viewEntity.prevPosZ) * partialTicks;
+			double px = viewEntity.xo + (viewEntity.position().x - viewEntity.xo) * partialTicks;
+			double py = viewEntity.yo + (viewEntity.position().y - viewEntity.yo) * partialTicks;
+			double pz = viewEntity.zo + (viewEntity.position().z - viewEntity.zo) * partialTicks;
 			this.renderingvec = new Vector3d(this.pos.getX() - px, this.pos.getY() - py, this.pos.getZ() - pz);
 			this.partialFrame = partialTicks;
 		}
@@ -136,10 +136,10 @@ public class DataAccessor implements ICommonAccessor, IDataAccessor, IEntityAcce
 			return serverData;
 
 		if (this.tileEntity != null)
-			return tileEntity.write(new CompoundNBT());
+			return tileEntity.save(new CompoundNBT());
 
 		if (this.entity != null)
-			return entity.writeWithoutTypeId(new CompoundNBT());
+			return entity.saveWithoutId(new CompoundNBT());
 
 		return new CompoundNBT();
 	}
@@ -158,7 +158,7 @@ public class DataAccessor implements ICommonAccessor, IDataAccessor, IEntityAcce
 		int y = tag.getInt("y");
 		int z = tag.getInt("z");
 
-		BlockPos hitPos = ((BlockRayTraceResult) this.hitResult).getPos();
+		BlockPos hitPos = ((BlockRayTraceResult) this.hitResult).getBlockPos();
 		if (x == hitPos.getX() && y == hitPos.getY() && z == hitPos.getZ())
 			return true;
 		else {
@@ -175,7 +175,7 @@ public class DataAccessor implements ICommonAccessor, IDataAccessor, IEntityAcce
 
 		int id = tag.getInt("WailaEntityID");
 
-		if (id == this.entity.getEntityId())
+		if (id == this.entity.getId())
 			return true;
 		else {
 			this.timeLastUpdate = System.currentTimeMillis() - MetaDataProvider.rateLimiter;
@@ -190,7 +190,7 @@ public class DataAccessor implements ICommonAccessor, IDataAccessor, IEntityAcce
 
 	@Override
 	public Direction getSide() {
-		return hitResult == null ? null : hitResult.getType() == RayTraceResult.Type.ENTITY ? null : ((BlockRayTraceResult) this.hitResult).getFace();
+		return hitResult == null ? null : hitResult.getType() == RayTraceResult.Type.ENTITY ? null : ((BlockRayTraceResult) this.hitResult).getDirection();
 	}
 
 	@Override

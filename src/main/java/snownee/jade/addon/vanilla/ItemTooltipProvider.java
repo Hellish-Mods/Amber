@@ -25,7 +25,7 @@ public class ItemTooltipProvider implements IEntityComponentProvider {
 		}
 		ItemStack stack = ((ItemEntity) accessor.getEntity()).getItem();
 		WailaClient.hideModName = true;
-		List<ITextComponent> itemTooltip = stack.getTooltip(null, TooltipFlags.NORMAL);
+		List<ITextComponent> itemTooltip = stack.getTooltipLines(null, TooltipFlags.NORMAL);
 		WailaClient.hideModName = false;
 		if (!itemTooltip.isEmpty()) {
 			itemTooltip.remove(0);

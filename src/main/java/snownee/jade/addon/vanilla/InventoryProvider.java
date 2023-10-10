@@ -113,7 +113,7 @@ public class InventoryProvider implements IComponentProvider, IServerDataProvide
 
 		if (!JadeCommonConfig.bypassLockedContainer && !player.isCreative() && !player.isSpectator() && te instanceof LockableTileEntity) {
 			LockableTileEntity lockableTileEntity = (LockableTileEntity) te;
-			if (lockableTileEntity.code != LockCode.EMPTY_CODE) {
+			if (lockableTileEntity.lockKey != LockCode.NO_LOCK) {
 				tag.putBoolean("Locked", true);
 				return;
 			}
@@ -126,7 +126,7 @@ public class InventoryProvider implements IComponentProvider, IServerDataProvide
 		} else if (te instanceof IInventory) {
 			itemHandler = new InvWrapper((IInventory) te);
 		} else if (te instanceof EnderChestTileEntity) {
-			itemHandler = new InvWrapper(player.getInventoryEnderChest());
+			itemHandler = new InvWrapper(player.getEnderChestInventory());
 		}
 		if (itemHandler != null) {
 			size = Math.min(size, itemHandler.getSlots());

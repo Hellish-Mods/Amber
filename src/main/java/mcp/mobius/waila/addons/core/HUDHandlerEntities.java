@@ -30,7 +30,7 @@ public class HUDHandlerEntities implements IEntityComponentProvider {
 	public void appendHead(List<ITextComponent> tooltip, IEntityAccessor accessor, IPluginConfig config) {
 		((ITaggableList<ResourceLocation, ITextComponent>) tooltip).setTag(HUDHandlerBlocks.OBJECT_NAME_TAG, new StringTextComponent(String.format(Waila.CONFIG.get().getFormatting().getEntityName(), getEntityName(accessor.getEntity()))));
 		if (config.get(PluginCore.CONFIG_SHOW_REGISTRY))
-			((ITaggableList<ResourceLocation, ITextComponent>) tooltip).setTag(HUDHandlerBlocks.REGISTRY_NAME_TAG, new StringTextComponent(accessor.getEntity().getType().getRegistryName().toString()).mergeStyle(TextFormatting.GRAY));
+			((ITaggableList<ResourceLocation, ITextComponent>) tooltip).setTag(HUDHandlerBlocks.REGISTRY_NAME_TAG, new StringTextComponent(accessor.getEntity().getType().getRegistryName().toString()).withStyle(TextFormatting.GRAY));
 	}
 
 	public static String getEntityName(Entity entity) {
@@ -83,7 +83,7 @@ public class HUDHandlerEntities implements IEntityComponentProvider {
 	}
 
 	private void appendArmor(LivingEntity living, List<ITextComponent> tooltip) {
-		float armor = living.getTotalArmorValue();
+		float armor = living.getArmorValue();
 		if (armor == 0)
 			return;
 		if (armor > Waila.CONFIG.get().getGeneral().getMaxHealthForRender()) {

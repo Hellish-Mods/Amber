@@ -16,11 +16,11 @@ public class MessageReceiveData {
 	}
 
 	public static MessageReceiveData read(PacketBuffer buffer) {
-		return new MessageReceiveData(buffer.readCompoundTag());
+		return new MessageReceiveData(buffer.readNbt());
 	}
 
 	public static void write(MessageReceiveData message, PacketBuffer buffer) {
-		buffer.writeCompoundTag(message.tag);
+		buffer.writeNbt(message.tag);
 	}
 
 	public static class Handler {

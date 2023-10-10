@@ -29,9 +29,9 @@ public class PlayerHeadProvider implements IComponentProvider {
 		}
 		if (accessor.getTileEntity() instanceof SkullTileEntity) {
 			SkullTileEntity tile = (SkullTileEntity) accessor.getTileEntity();
-			GameProfile profile = tile.getPlayerProfile();
+			GameProfile profile = tile.getOwnerProfile();
 			if (profile != null) {
-				((ITaggableList<ResourceLocation, ITextComponent>) tooltip).setTag(OBJECT_NAME_TAG, new StringTextComponent(String.format(Waila.CONFIG.get().getFormatting().getBlockName(), I18n.format(Items.PLAYER_HEAD.getTranslationKey() + ".named", profile.getName()))));
+				((ITaggableList<ResourceLocation, ITextComponent>) tooltip).setTag(OBJECT_NAME_TAG, new StringTextComponent(String.format(Waila.CONFIG.get().getFormatting().getBlockName(), I18n.get(Items.PLAYER_HEAD.getDescriptionId() + ".named", profile.getName()))));
 			}
 		}
 	}

@@ -40,13 +40,13 @@ public class PotionEffectsProvider implements IEntityComponentProvider, IServerD
 			TranslationTextComponent name = new TranslationTextComponent(compound.getString("Name"));
 			String amplifierKey = "potion.potency." + compound.getInt("Amplifier");
 			ITextComponent amplifier;
-			if (I18n.hasKey(amplifierKey)) {
+			if (I18n.exists(amplifierKey)) {
 				amplifier = new TranslationTextComponent(amplifierKey);
 			} else {
 				amplifier = new StringTextComponent(Integer.toString(compound.getInt("Amplifier")));
 			}
 			TranslationTextComponent s = new TranslationTextComponent("jade.potion", name, amplifier, getPotionDurationString(duration));
-			lines[i] = s.mergeStyle(compound.getBoolean("Bad") ? TextFormatting.RED : TextFormatting.GREEN);
+			lines[i] = s.withStyle(compound.getBoolean("Bad") ? TextFormatting.RED : TextFormatting.GREEN);
 		}
 		tooltip.add(Renderables.box(lines));
 	}
@@ -70,18 +70,18 @@ public class PotionEffectsProvider implements IEntityComponentProvider, IServerD
 	@Override
 	public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World arg2, Entity entity) {
 		LivingEntity living = (LivingEntity) entity;
-		Collection<EffectInstance> effects = living.getActivePotionEffects();
+		Collection<EffectInstance> effects = living.getActiveEffects();
 		if (effects.isEmpty()) {
 			return;
 		}
 		ListNBT list = new ListNBT();
 		for (EffectInstance effect : effects) {
 			CompoundNBT compound = new CompoundNBT();
-			compound.putString("Name", effect.getEffectName());
+			compound.putString("Name", effect.getDescriptionId());
 			compound.putInt("Amplifier", effect.getAmplifier());
 			int duration = Math.min(32767, effect.getDuration());
 			compound.putInt("Duration", duration);
-			compound.putBoolean("Bad", !effect.getPotion().isBeneficial());
+			compound.putBoolean("Bad", !effect.getEffect().isBeneficial());
 			list.add(compound);
 		}
 		tag.put("Potions", list);

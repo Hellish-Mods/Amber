@@ -20,7 +20,7 @@ public class MessageRequestTile {
 	public BlockPos pos;
 
 	public MessageRequestTile(TileEntity tile) {
-		this.pos = tile.getPos();
+		this.pos = tile.getBlockPos();
 	}
 
 	private MessageRequestTile(BlockPos pos) {
@@ -40,11 +40,11 @@ public class MessageRequestTile {
 		public static void onMessage(MessageRequestTile message, Supplier<NetworkEvent.Context> context) {
 			context.get().enqueueWork(() -> {
 				ServerPlayerEntity player = context.get().getSender();
-				World world = player.world;
-				if (message.pos.distanceSq(player.getPosition()) > MAX_DISTANCE_SQR || !world.isBlockPresent(message.pos))
+				World world = player.level;
+				if (message.pos.distSqr(player.blockPosition()) > MAX_DISTANCE_SQR || !world.isLoaded(message.pos))
 					return;
 
-				TileEntity tile = world.getTileEntity(message.pos);
+				TileEntity tile = world.getBlockEntity(message.pos);
 				BlockState state = world.getBlockState(message.pos);
 
 				if (tile == null)
@@ -55,7 +55,7 @@ public class MessageRequestTile {
 					WailaRegistrar.INSTANCE.getNBTProviders(tile).values().forEach(l -> l.forEach(p -> p.appendServerData(tag, player, world, tile)));
 					WailaRegistrar.INSTANCE.getNBTProviders(state.getBlock()).values().forEach(l -> l.forEach(p -> p.appendServerData(tag, player, world, tile)));
 				} else {
-					tile.write(tag);
+					tile.save(tag);
 				}
 
 				tag.putInt("x", message.pos.getX());
@@ -63,7 +63,7 @@ public class MessageRequestTile {
 				tag.putInt("z", message.pos.getZ());
 				tag.putString("id", tile.getType().getRegistryName().toString());
 
-				Waila.NETWORK.sendTo(new MessageReceiveData(tag), player.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
+				Waila.NETWORK.sendTo(new MessageReceiveData(tag), player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
 			});
 			context.get().setPacketHandled(true);
 		}

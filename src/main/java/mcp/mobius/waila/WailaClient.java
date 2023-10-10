@@ -37,9 +37,9 @@ public class WailaClient {
 	public static void initClient() {
 		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> ((minecraft, screen) -> new GuiConfigHome(screen)));
 
-		WailaClient.openConfig = new KeyBinding("key.waila.config", KeyConflictContext.IN_GAME, KeyModifier.NONE, InputMappings.Type.KEYSYM.getOrMakeInput(320), Waila.NAME);
-		WailaClient.showOverlay = new KeyBinding("key.waila.show_overlay", KeyConflictContext.IN_GAME, KeyModifier.NONE, InputMappings.Type.KEYSYM.getOrMakeInput(321), Waila.NAME);
-		WailaClient.toggleLiquid = new KeyBinding("key.waila.toggle_liquid", KeyConflictContext.IN_GAME, KeyModifier.NONE, InputMappings.Type.KEYSYM.getOrMakeInput(322), Waila.NAME);
+		WailaClient.openConfig = new KeyBinding("key.waila.config", KeyConflictContext.IN_GAME, KeyModifier.NONE, InputMappings.Type.KEYSYM.getOrCreate(320), Waila.NAME);
+		WailaClient.showOverlay = new KeyBinding("key.waila.show_overlay", KeyConflictContext.IN_GAME, KeyModifier.NONE, InputMappings.Type.KEYSYM.getOrCreate(321), Waila.NAME);
+		WailaClient.toggleLiquid = new KeyBinding("key.waila.toggle_liquid", KeyConflictContext.IN_GAME, KeyModifier.NONE, InputMappings.Type.KEYSYM.getOrCreate(322), Waila.NAME);
 
 		ClientRegistry.registerKeyBinding(WailaClient.openConfig.getKeyBinding());
 		ClientRegistry.registerKeyBinding(WailaClient.showOverlay.getKeyBinding());
@@ -53,18 +53,18 @@ public class WailaClient {
 		if (event.getAction() != 1)
 			return;
 
-		if (openConfig.isKeyDown()) {
-			Minecraft.getInstance().displayGuiScreen(new GuiConfigHome(null));
+		if (openConfig.isDown()) {
+			Minecraft.getInstance().setScreen(new GuiConfigHome(null));
 		}
 
-		if (showOverlay.isKeyDown()) {
+		if (showOverlay.isDown()) {
 			DisplayMode mode = Waila.CONFIG.get().getGeneral().getDisplayMode();
 			if (mode == WailaConfig.DisplayMode.TOGGLE) {
 				Waila.CONFIG.get().getGeneral().setDisplayTooltip(!Waila.CONFIG.get().getGeneral().shouldDisplayTooltip());
 			}
 		}
 
-		if (toggleLiquid.isKeyDown()) {
+		if (toggleLiquid.isDown()) {
 			Waila.CONFIG.get().getGeneral().setDisplayFluids(!Waila.CONFIG.get().getGeneral().shouldDisplayFluids());
 		}
 	}

@@ -86,9 +86,9 @@ public class Tooltip {
 				}
 			} else {
 				RenderSystem.enableAlphaTest(); // Snownee: why?
-				IRenderTypeBuffer.Impl irendertypebuffer$impl = IRenderTypeBuffer.getImpl(Tessellator.getInstance().getBuffer());
-				client.fontRenderer.drawEntityText(line.getComponent().func_241878_f(), x, y, color.getFontColor(), true, matrixStack.getLast().getMatrix(), irendertypebuffer$impl, false, 0, 15728880);
-				irendertypebuffer$impl.finish();
+				IRenderTypeBuffer.Impl irendertypebuffer$impl = IRenderTypeBuffer.immediate(Tessellator.getInstance().getBuilder());
+				client.font.drawInBatch(line.getComponent().getVisualOrderText(), x, y, color.getFontColor(), true, matrixStack.last().pose(), irendertypebuffer$impl, false, 0, 15728880);
+				irendertypebuffer$impl.endBatch();
 			}
 			y += line.size.height;
 		}
@@ -118,7 +118,7 @@ public class Tooltip {
 			}
 		}
 
-		return new Dimension(client.fontRenderer.getStringWidth(component.getString()), client.fontRenderer.FONT_HEIGHT + 1);
+		return new Dimension(client.font.width(component.getString()), client.font.lineHeight + 1);
 	}
 
 	public List<Line> getLines() {
@@ -130,10 +130,10 @@ public class Tooltip {
 	}
 
 	public Rectangle getPosition() {
-		MainWindow window = Minecraft.getInstance().getMainWindow();
+		MainWindow window = Minecraft.getInstance().getWindow();
 		ConfigOverlay overlay = Waila.CONFIG.get().getOverlay();
-		int x = (int) (window.getScaledWidth() * overlay.tryFlip(overlay.getOverlayPosX()) - totalSize.width * overlay.tryFlip(overlay.getAnchorX()));
-		int y = (int) (window.getScaledHeight() * (1.0F - overlay.getOverlayPosY()) - totalSize.height * overlay.getAnchorY());
+		int x = (int) (window.getGuiScaledWidth() * overlay.tryFlip(overlay.getOverlayPosX()) - totalSize.width * overlay.tryFlip(overlay.getAnchorX()));
+		int y = (int) (window.getGuiScaledHeight() * (1.0F - overlay.getOverlayPosY()) - totalSize.height * overlay.getAnchorY());
 		return new Rectangle(x, y, totalSize.width, totalSize.height);
 	}
 

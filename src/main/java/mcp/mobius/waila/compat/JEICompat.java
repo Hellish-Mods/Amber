@@ -27,8 +27,8 @@ public class JEICompat implements IModPlugin {
 
 	public JEICompat() {
 		if (showRecipes == null) {
-			showRecipes = new KeyBinding("key.waila.show_recipes", KeyConflictContext.IN_GAME, KeyModifier.NONE, InputMappings.Type.KEYSYM.getOrMakeInput(323), Jade.NAME);
-			showUses = new KeyBinding("key.waila.show_uses", KeyConflictContext.IN_GAME, KeyModifier.NONE, InputMappings.Type.KEYSYM.getOrMakeInput(324), Jade.NAME);
+			showRecipes = new KeyBinding("key.waila.show_recipes", KeyConflictContext.IN_GAME, KeyModifier.NONE, InputMappings.Type.KEYSYM.getOrCreate(323), Jade.NAME);
+			showUses = new KeyBinding("key.waila.show_uses", KeyConflictContext.IN_GAME, KeyModifier.NONE, InputMappings.Type.KEYSYM.getOrCreate(324), Jade.NAME);
 			ClientRegistry.registerKeyBinding(showRecipes.getKeyBinding());
 			ClientRegistry.registerKeyBinding(showUses.getKeyBinding());
 		}
@@ -52,7 +52,7 @@ public class JEICompat implements IModPlugin {
 			return;
 		if (event.getAction() != 1)
 			return;
-		if (!showRecipes.isKeyDown() && !showUses.isKeyDown())
+		if (!showRecipes.isDown() && !showUses.isDown())
 			return;
 		ItemStack stack = DataAccessor.INSTANCE.getStack();
 		if (stack.isEmpty())
@@ -61,6 +61,6 @@ public class JEICompat implements IModPlugin {
 		IRecipesGui gui = runtime.getRecipesGui();
 		IRecipeManager manager = runtime.getRecipeManager();
 
-		gui.show(manager.createFocus(showUses.isKeyDown() ? IFocus.Mode.INPUT : IFocus.Mode.OUTPUT, stack));
+		gui.show(manager.createFocus(showUses.isDown() ? IFocus.Mode.INPUT : IFocus.Mode.OUTPUT, stack));
 	}
 }

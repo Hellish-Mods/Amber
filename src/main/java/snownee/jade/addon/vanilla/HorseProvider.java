@@ -21,7 +21,7 @@ public class HorseProvider implements IEntityComponentProvider {
 			return;
 		}
 		AbstractHorseEntity horse = (AbstractHorseEntity) accessor.getEntity();
-		double jumpStrength = horse.getHorseJumpStrength();
+		double jumpStrength = horse.getCustomJump();
 		double jumpHeight = -0.1817584952 * jumpStrength * jumpStrength * jumpStrength + 3.689713992 * jumpStrength * jumpStrength + 2.128599134 * jumpStrength - 0.343930367;
 		// https://minecraft.fandom.com/wiki/Horse?so=search#Movement_speed
 		double speed = horse.getAttributeValue(Attributes.MOVEMENT_SPEED) * 43.17;

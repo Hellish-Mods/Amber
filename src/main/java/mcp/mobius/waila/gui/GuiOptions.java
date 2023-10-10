@@ -45,22 +45,22 @@ public abstract class GuiOptions extends Screen {
 
 		options = getOptions();
 		children.add(options);
-		setListener(options);
+		setFocused(options);
 
 		if (saver != null && canceller != null) {
 			addButton(new Button(width / 2 - 100, height - 25, 100, 20, new TranslationTextComponent("gui.done"), w -> {
 				options.save();
 				saver.run();
-				minecraft.displayGuiScreen(parent);
+				minecraft.setScreen(parent);
 			}));
 			addButton(new Button(width / 2 + 5, height - 25, 100, 20, new TranslationTextComponent("gui.cancel"), w -> {
 				canceller.run();
-				minecraft.displayGuiScreen(parent);
+				minecraft.setScreen(parent);
 			}));
 		} else {
 			addButton(new Button(width / 2 - 50, height - 25, 100, 20, new TranslationTextComponent("gui.done"), w -> {
 				options.save();
-				minecraft.displayGuiScreen(parent);
+				minecraft.setScreen(parent);
 			}));
 		}
 	}
@@ -79,21 +79,21 @@ public abstract class GuiOptions extends Screen {
 		if (entry instanceof OptionsEntryValue) {
 			OptionsEntryValue value = (OptionsEntryValue) entry;
 
-			if (I18n.hasKey(value.getDescription())) {
+			if (I18n.exists(value.getDescription())) {
 				int valueX = value.getX() + 10;
 				String title = value.getTitle().getString();
-				if (mouseX < valueX || mouseX > valueX + font.getStringWidth(title))
+				if (mouseX < valueX || mouseX > valueX + font.width(title))
 					return;
 
-				List<IReorderingProcessor> tooltip = Arrays.asList(new StringTextComponent(title).func_241878_f());
-				tooltip.addAll(font.trimStringToWidth(new TranslationTextComponent(value.getDescription()), 200));
+				List<IReorderingProcessor> tooltip = Arrays.asList(new StringTextComponent(title).getVisualOrderText());
+				tooltip.addAll(font.split(new TranslationTextComponent(value.getDescription()), 200));
 				renderTooltip(matrixStack, tooltip, mouseX, mouseY);
 			}
 		}
 	}
 
 	@Override
-	public IGuiEventListener addListener(IGuiEventListener listener) {
+	public IGuiEventListener addWidget(IGuiEventListener listener) {
 		children.add(listener);
 		return listener;
 	}
@@ -106,9 +106,9 @@ public abstract class GuiOptions extends Screen {
 	}
 
 	@Override
-	public void closeScreen() {
+	public void onClose() {
 		if (canceller != null)
 			canceller.run();
-		super.closeScreen();
+		super.onClose();
 	}
 }

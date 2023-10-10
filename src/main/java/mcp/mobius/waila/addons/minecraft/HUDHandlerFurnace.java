@@ -30,7 +30,7 @@ public class HUDHandlerFurnace implements IComponentProvider, IServerDataProvide
 		ListNBT furnaceItems = accessor.getServerData().getList("furnace", Constants.NBT.TAG_COMPOUND);
 		NonNullList<ItemStack> inventory = NonNullList.withSize(3, ItemStack.EMPTY);
 		for (int i = 0; i < furnaceItems.size(); i++)
-			inventory.set(i, ItemStack.read(furnaceItems.getCompound(i)));
+			inventory.set(i, ItemStack.of(furnaceItems.getCompound(i)));
 
 		CompoundNBT progress = new CompoundNBT();
 		progress.putInt("progress", progressInt);
@@ -45,11 +45,11 @@ public class HUDHandlerFurnace implements IComponentProvider, IServerDataProvide
 	public void appendServerData(CompoundNBT data, ServerPlayerEntity player, World world, TileEntity blockEntity) {
 		AbstractFurnaceTileEntity furnace = (AbstractFurnaceTileEntity) blockEntity;
 		ListNBT items = new ListNBT();
-		items.add(furnace.getStackInSlot(0).write(new CompoundNBT()));
-		items.add(furnace.getStackInSlot(1).write(new CompoundNBT()));
-		items.add(furnace.getStackInSlot(2).write(new CompoundNBT()));
+		items.add(furnace.getItem(0).save(new CompoundNBT()));
+		items.add(furnace.getItem(1).save(new CompoundNBT()));
+		items.add(furnace.getItem(2).save(new CompoundNBT()));
 		data.put("furnace", items);
-		CompoundNBT furnaceTag = furnace.write(new CompoundNBT());
+		CompoundNBT furnaceTag = furnace.save(new CompoundNBT());
 		data.putInt("progress", furnaceTag.getInt("CookTime")); // smh
 		data.putInt("total", furnaceTag.getInt("CookTimeTotal")); // smh
 	}

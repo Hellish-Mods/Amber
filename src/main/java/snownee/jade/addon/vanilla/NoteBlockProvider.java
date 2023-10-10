@@ -26,11 +26,11 @@ public class NoteBlockProvider implements IComponentProvider {
 			return;
 		}
 		BlockState state = accessor.getBlockState();
-		int note = state.get(NoteBlock.NOTE);
+		int note = state.getValue(NoteBlock.NOTE);
 		String pitch = PITCH[note % PITCH.length];
 		TextFormatting octave = OCTAVE[note / PITCH.length];
-		NoteBlockInstrument instrument = state.get(NoteBlock.INSTRUMENT);
-		tooltip.add(new TranslationTextComponent("%s %s", new TranslationTextComponent("jade.instrument." + instrument.getString()), octave + pitch));
+		NoteBlockInstrument instrument = state.getValue(NoteBlock.INSTRUMENT);
+		tooltip.add(new TranslationTextComponent("%s %s", new TranslationTextComponent("jade.instrument." + instrument.getSerializedName()), octave + pitch));
 	}
 
 }

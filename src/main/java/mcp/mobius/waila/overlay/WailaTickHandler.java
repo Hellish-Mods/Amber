@@ -51,12 +51,12 @@ public class WailaTickHandler {
 		}
 
 		Minecraft client = Minecraft.getInstance();
-		if (!(client.currentScreen instanceof GuiOptions)) {
-			if (client.isGamePaused() || client.currentScreen != null || client.keyboardListener == null) {
+		if (!(client.screen instanceof GuiOptions)) {
+			if (client.isPaused() || client.screen != null || client.keyboardHandler == null) {
 				return;
 			}
 		}
-		World world = client.world;
+		World world = client.level;
 		PlayerEntity player = client.player;
 
 		if (world == null || player == null) {
@@ -137,7 +137,7 @@ public class WailaTickHandler {
 	private void combinePositions(PlayerEntity player, List<ITextComponent> currentTip, List<ITextComponent> currentTipHead, List<ITextComponent> currentTipBody, List<ITextComponent> currentTipTail) {
 		if (Waila.CONFIG.get().getGeneral().shouldShiftForDetails() && !currentTipBody.isEmpty() && !player.isSecondaryUseActive()) {
 			currentTipBody.clear();
-			currentTipBody.add(new TranslationTextComponent("tooltip.waila.sneak_for_details").setStyle(Style.EMPTY.setItalic(true)));
+			currentTipBody.add(new TranslationTextComponent("tooltip.waila.sneak_for_details").setStyle(Style.EMPTY.withItalic(true)));
 		}
 
 		((ITaggableList<ResourceLocation, ITextComponent>) currentTip).absorb((ITaggableList<ResourceLocation, ITextComponent>) currentTipHead);
@@ -163,20 +163,20 @@ public class WailaTickHandler {
 		if (!getNarrator().active() || !Waila.CONFIG.get().getGeneral().shouldEnableTextToSpeech())
 			return;
 
-		if (Minecraft.getInstance().currentScreen != null && Minecraft.getInstance().gameSettings.chatVisibility != ChatVisibility.HIDDEN)
+		if (Minecraft.getInstance().screen != null && Minecraft.getInstance().options.chatVisibility != ChatVisibility.HIDDEN)
 			return;
 
 		if (event.getAccessor().getBlock() == Blocks.AIR && event.getAccessor().getEntity() == null)
 			return;
 
-		if (Minecraft.getInstance().world != null && Minecraft.getInstance().world.getGameTime() % 5 > 0) {
+		if (Minecraft.getInstance().level != null && Minecraft.getInstance().level.getGameTime() % 5 > 0) {
 			return;
 		}
 
 		ITextComponent component = event.getCurrentTip().get(0);
 		if (component instanceof TaggedTextComponent && event.getCurrentTip() instanceof ITaggableList)
 			component = ((ITaggableList<ResourceLocation, ITextComponent>) event.getCurrentTip()).getTag(((TaggedTextComponent) component).getTag());
-		String narrate = TextProcessing.func_244782_a(component);
+		String narrate = TextProcessing.getPlainText(component);
 		if (lastNarration.equalsIgnoreCase(narrate))
 			return;
 

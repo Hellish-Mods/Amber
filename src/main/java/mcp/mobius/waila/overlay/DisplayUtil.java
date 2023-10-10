@@ -39,7 +39,7 @@ public class DisplayUtil {
 	private static final Minecraft CLIENT = Minecraft.getInstance();
 
 	public static void renderStack(MatrixStack matrixStack, int x, int y, ItemStack stack, float scale) {
-		matrixStack.push();
+		matrixStack.pushPose();
 		enable3DRender();
 		try {
 			//MatrixStack matrixStack = new MatrixStack();
@@ -49,49 +49,49 @@ public class DisplayUtil {
 			renderItemIntoGUI(stack, x, y, scale);
 			ItemStack overlayRender = stack.copy();
 			overlayRender.setCount(1);
-			CLIENT.getItemRenderer().renderItemOverlayIntoGUI(CLIENT.fontRenderer, overlayRender, x, y, null);
-			renderStackSize(matrixStack, CLIENT.fontRenderer, stack, x, y);
+			CLIENT.getItemRenderer().renderGuiItemDecorations(CLIENT.font, overlayRender, x, y, null);
+			renderStackSize(matrixStack, CLIENT.font, stack, x, y);
 		} catch (Exception e) {
 			String stackStr = stack != null ? stack.toString() : "NullStack";
 			WailaExceptionHandler.handleErr(e, "renderStack | " + stackStr, null);
 		}
 		enable2DRender();
-		matrixStack.pop();
+		matrixStack.popPose();
 	}
 
 	public static void renderItemIntoGUI(ItemStack stack, int x, int y, float scale) {
 		ItemRenderer renderer = CLIENT.getItemRenderer();
-		renderItemModelIntoGUI(stack, x, y, renderer.getItemModelWithOverrides(stack, (World) null, (LivingEntity) null), scale);
+		renderItemModelIntoGUI(stack, x, y, renderer.getModel(stack, (World) null, (LivingEntity) null), scale);
 	}
 
 	protected static void renderItemModelIntoGUI(ItemStack stack, int x, int y, IBakedModel bakedmodel, float scale) {
 		ItemRenderer renderer = CLIENT.getItemRenderer();
 		TextureManager textureManager = CLIENT.textureManager;
 		RenderSystem.pushMatrix();
-		textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		textureManager.getTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE).setBlurMipmapDirect(false, false);
+		textureManager.bind(AtlasTexture.LOCATION_BLOCKS);
+		textureManager.getTexture(AtlasTexture.LOCATION_BLOCKS).setBlurMipmap(false, false);
 		RenderSystem.enableRescaleNormal();
 		RenderSystem.enableAlphaTest();
 		RenderSystem.defaultAlphaFunc();
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.translatef((float) x, (float) y, 100.0F + renderer.zLevel);
+		RenderSystem.translatef((float) x, (float) y, 100.0F + renderer.blitOffset);
 		RenderSystem.translatef(8.0F * scale, 8.0F * scale, 0.0F);
 		RenderSystem.scalef(scale, -scale, scale);
 		RenderSystem.scalef(16.0F, 16.0F, 16.0F);
 		MatrixStack matrixstack = new MatrixStack();
-		IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-		boolean flag = !bakedmodel.isSideLit();
+		IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().renderBuffers().bufferSource();
+		boolean flag = !bakedmodel.usesBlockLight();
 		if (flag) {
-			RenderHelper.setupGuiFlatDiffuseLighting();
+			RenderHelper.setupForFlatItems();
 		}
 
-		renderer.renderItem(stack, ItemCameraTransforms.TransformType.GUI, false, matrixstack, irendertypebuffer$impl, 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
-		irendertypebuffer$impl.finish();
+		renderer.render(stack, ItemCameraTransforms.TransformType.GUI, false, matrixstack, irendertypebuffer$impl, 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
+		irendertypebuffer$impl.endBatch();
 		RenderSystem.enableDepthTest();
 		if (flag) {
-			RenderHelper.setupGui3DDiffuseLighting();
+			RenderHelper.setupFor3DItems();
 		}
 
 		RenderSystem.disableAlphaTest();
@@ -109,10 +109,10 @@ public class DisplayUtil {
 			RenderSystem.disableLighting();
 			RenderSystem.disableDepthTest();
 			RenderSystem.disableBlend();
-			matrixStack.push();
-			matrixStack.translate(0, 0, Minecraft.getInstance().getItemRenderer().zLevel + 200F);
-			fr.drawStringWithShadow(matrixStack, s, xPosition + 19 - 2 - fr.getStringWidth(s), yPosition + 6 + 3, 16777215);
-			matrixStack.pop();
+			matrixStack.pushPose();
+			matrixStack.translate(0, 0, Minecraft.getInstance().getItemRenderer().blitOffset + 200F);
+			fr.drawShadow(matrixStack, s, xPosition + 19 - 2 - fr.width(s), yPosition + 6 + 3, 16777215);
+			matrixStack.popPose();
 			RenderSystem.enableLighting();
 			RenderSystem.enableDepthTest();
 			RenderSystem.enableBlend();
@@ -140,7 +140,7 @@ public class DisplayUtil {
 
 	public static void drawGradientRect(MatrixStack matrixStack, int left, int top, int right, int bottom, int startColor, int endColor) {
 		float zLevel = 0.0F;
-		Matrix4f matrix = matrixStack.getLast().getMatrix();
+		Matrix4f matrix = matrixStack.last().pose();
 
 		float f = (startColor >> 24 & 255) / 255.0F;
 		float f1 = (startColor >> 16 & 255) / 255.0F;
@@ -156,13 +156,13 @@ public class DisplayUtil {
 		RenderSystem.blendFuncSeparate(770, 771, 1, 0);
 		RenderSystem.shadeModel(7425);
 		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder buffer = tessellator.getBuffer();
+		BufferBuilder buffer = tessellator.getBuilder();
 		buffer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-		buffer.pos(matrix, left + right, top, zLevel).color(f1, f2, f3, f).endVertex();
-		buffer.pos(matrix, left, top, zLevel).color(f1, f2, f3, f).endVertex();
-		buffer.pos(matrix, left, top + bottom, zLevel).color(f5, f6, f7, f4).endVertex();
-		buffer.pos(matrix, left + right, top + bottom, zLevel).color(f5, f6, f7, f4).endVertex();
-		tessellator.draw();
+		buffer.vertex(matrix, left + right, top, zLevel).color(f1, f2, f3, f).endVertex();
+		buffer.vertex(matrix, left, top, zLevel).color(f1, f2, f3, f).endVertex();
+		buffer.vertex(matrix, left, top + bottom, zLevel).color(f5, f6, f7, f4).endVertex();
+		buffer.vertex(matrix, left + right, top + bottom, zLevel).color(f5, f6, f7, f4).endVertex();
+		tessellator.end();
 		RenderSystem.shadeModel(7424);
 		RenderSystem.disableBlend();
 		RenderSystem.enableAlphaTest();
@@ -170,24 +170,24 @@ public class DisplayUtil {
 	}
 
 	public static void drawTexturedModalRect(MatrixStack matrixStack, int x, int y, int textureX, int textureY, int width, int height, int tw, int th) {
-		Matrix4f matrix = matrixStack.getLast().getMatrix();
+		Matrix4f matrix = matrixStack.last().pose();
 		float f = 0.00390625F;
 		float f1 = 0.00390625F;
 		float zLevel = 0.0F;
 		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder buffer = tessellator.getBuffer();
+		BufferBuilder buffer = tessellator.getBuilder();
 		buffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		buffer.pos(matrix, x, y + height, zLevel).tex(((textureX) * f), ((textureY + th) * f1)).endVertex();
-		buffer.pos(matrix, x + width, y + height, zLevel).tex(((textureX + tw) * f), ((textureY + th) * f1)).endVertex();
-		buffer.pos(matrix, x + width, y, zLevel).tex(((textureX + tw) * f), ((textureY) * f1)).endVertex();
-		buffer.pos(matrix, x, y, zLevel).tex(((textureX) * f), ((textureY) * f1)).endVertex();
-		tessellator.draw();
+		buffer.vertex(matrix, x, y + height, zLevel).uv(((textureX) * f), ((textureY + th) * f1)).endVertex();
+		buffer.vertex(matrix, x + width, y + height, zLevel).uv(((textureX + tw) * f), ((textureY + th) * f1)).endVertex();
+		buffer.vertex(matrix, x + width, y, zLevel).uv(((textureX + tw) * f), ((textureY) * f1)).endVertex();
+		buffer.vertex(matrix, x, y, zLevel).uv(((textureX) * f), ((textureY) * f1)).endVertex();
+		tessellator.end();
 	}
 
 	public static List<ITextComponent> itemDisplayNameMultiline(ItemStack itemstack) {
 		List<ITextComponent> namelist = null;
 		try {
-			namelist = itemstack.getTooltip(CLIENT.player, ITooltipFlag.TooltipFlags.NORMAL);
+			namelist = itemstack.getTooltipLines(CLIENT.player, ITooltipFlag.TooltipFlags.NORMAL);
 		} catch (Throwable ignored) {
 		}
 
@@ -206,7 +206,7 @@ public class DisplayUtil {
 
 	public static void renderIcon(MatrixStack matrixStack, int x, int y, int sx, int sy, IconUI icon) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		CLIENT.getTextureManager().bindTexture(AbstractGui.GUI_ICONS_LOCATION);
+		CLIENT.getTextureManager().bind(AbstractGui.GUI_ICONS_LOCATION);
 
 		if (icon == null)
 			return;

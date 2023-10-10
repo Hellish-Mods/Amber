@@ -35,13 +35,13 @@ public class GuiConfigPlugins extends GuiOptions {
 			}
 			Set<ResourceLocation> keys = PluginConfig.INSTANCE.getKeys(namespace);
 			options.add(new OptionsEntryButton(translationKey, new Button(0, 0, 100, 20, StringTextComponent.EMPTY, w -> {
-				minecraft.displayGuiScreen(new GuiOptions(GuiConfigPlugins.this, title, null, null) {
+				minecraft.setScreen(new GuiOptions(GuiConfigPlugins.this, title, null, null) {
 					@Override
 					public OptionsListWidget getOptions() {
 						OptionsListWidget options = new OptionsListWidget(this, minecraft, width + 45, height, 32, height - 32, 30);
 						keys.stream().sorted((o1, o2) -> o1.getPath().compareToIgnoreCase(o2.getPath())).forEach(i -> {
 							ConfigEntry entry = PluginConfig.INSTANCE.getEntry(i);
-							if (!entry.isSynced() || Minecraft.getInstance().getCurrentServerData() == null)
+							if (!entry.isSynced() || Minecraft.getInstance().getCurrentServer() == null)
 								options.add(new OptionsEntryValueBoolean(translationKey + "." + i.getPath(), entry.getValue(), b -> PluginConfig.INSTANCE.set(i, b)));
 						});
 						return options;

@@ -64,7 +64,7 @@ public class HarvestToolProvider implements IComponentProvider, ISelectiveResour
 	public static final TestCase NO_TOOL = new TestCase(ItemStack.EMPTY, "no_tool", null);
 	public static final TestCase UNBREAKABLE = new TestCase(ItemStack.EMPTY, "unbreakable", null);
 
-	private static final ITextComponent UNBREAKABLE_TEXT = new TranslationTextComponent("jade.harvest_tool.unbreakable").mergeStyle(TextFormatting.DARK_RED);
+	private static final ITextComponent UNBREAKABLE_TEXT = new TranslationTextComponent("jade.harvest_tool.unbreakable").withStyle(TextFormatting.DARK_RED);
 
 	static {
 		/* off */
@@ -89,8 +89,8 @@ public class HarvestToolProvider implements IComponentProvider, ISelectiveResour
 	public static String getToolName(TestCase testCase) {
 		try {
 			return toolNames.get(testCase, () -> {
-				if (I18n.hasKey("jade.harvest_tool." + testCase.name)) {
-					return I18n.format("jade.harvest_tool." + testCase.name);
+				if (I18n.exists("jade.harvest_tool." + testCase.name)) {
+					return I18n.get("jade.harvest_tool." + testCase.name);
 				} else {
 					return StringUtils.capitalize(testCase.name);
 				}
@@ -103,7 +103,7 @@ public class HarvestToolProvider implements IComponentProvider, ISelectiveResour
 
 	@Nullable
 	public static TestCase getTool(BlockState state, World world, BlockPos pos) {
-		float hardness = state.getBlockHardness(world, pos);
+		float hardness = state.getDestroySpeed(world, pos);
 		if (hardness < 0) {
 			return UNBREAKABLE;
 		}
@@ -116,12 +116,12 @@ public class HarvestToolProvider implements IComponentProvider, ISelectiveResour
 			}
 			return testCase;
 		}
-		if (state.getRequiresTool()) {
+		if (state.requiresCorrectToolForDrops()) {
 			for (TestCase testCase : testTools) {
 				if (testCase.stack.isEmpty()) {
 					continue;
 				}
-				if (testCase.stack.canHarvestBlock(state)) {
+				if (testCase.stack.isCorrectToolForDrops(state)) {
 					return testCase;
 				}
 			}
@@ -193,7 +193,7 @@ public class HarvestToolProvider implements IComponentProvider, ISelectiveResour
 		if (testCase == NO_TOOL) {
 			return null;
 		}
-		if (!state.getRequiresTool() && !config.get(JadePlugin.EFFECTIVE_TOOL)) {
+		if (!state.requiresCorrectToolForDrops() && !config.get(JadePlugin.EFFECTIVE_TOOL)) {
 			return null;
 		}
 		int level = state.getHarvestLevel();
@@ -207,10 +207,10 @@ public class HarvestToolProvider implements IComponentProvider, ISelectiveResour
 		}
 		boolean canHarvest = ForgeHooks.canHarvestBlock(state, accessor.getPlayer(), accessor.getWorld(), accessor.getPosition());
 		String sub;
-		if (state.getRequiresTool()) {
+		if (state.requiresCorrectToolForDrops()) {
 			sub = canHarvest ? "§a✔" : "§4✕";
 		} else {
-			ItemStack held = accessor.getPlayer().getHeldItemMainhand();
+			ItemStack held = accessor.getPlayer().getMainHandItem();
 			sub = (canHarvest && ForgeHooks.isToolEffective(accessor.getWorld(), accessor.getPosition(), held)) ? "§a✔" : "";
 		}
 		int offsetY = config.get(JadePlugin.HARVEST_TOOL_NEW_LINE) ? 0 : -3;
@@ -275,7 +275,7 @@ public class HarvestToolProvider implements IComponentProvider, ISelectiveResour
 		NonNullList<ItemStack> stacks = NonNullList.create();
 		Set<ToolType> newToolTypes = Sets.newHashSet();
 		for (Item item : ForgeRegistries.ITEMS.getValues()) {
-			item.fillItemGroup(ItemGroup.SEARCH, stacks);
+			item.fillItemCategory(ItemGroup.TAB_SEARCH, stacks);
 		}
 		for (ItemStack stack : stacks) {
 			for (ToolType toolType : stack.getToolTypes()) {

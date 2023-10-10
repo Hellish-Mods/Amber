@@ -53,20 +53,20 @@ public class RayTracing {
 	}
 
 	public void fire() {
-		Entity viewpoint = mc.getRenderViewEntity();
+		Entity viewpoint = mc.getCameraEntity();
 		if (viewpoint == null)
 			return;
 
-		if (mc.objectMouseOver != null && mc.objectMouseOver.getType() == RayTraceResult.Type.ENTITY) {
-			Entity targetEntity = ((EntityRayTraceResult) mc.objectMouseOver).getEntity();
+		if (mc.hitResult != null && mc.hitResult.getType() == RayTraceResult.Type.ENTITY) {
+			Entity targetEntity = ((EntityRayTraceResult) mc.hitResult).getEntity();
 			if (canBeTarget(targetEntity, viewpoint)) {
-				this.target = mc.objectMouseOver;
+				this.target = mc.hitResult;
 				return;
 			}
 		}
 
-		float reach = mc.playerController.getBlockReachDistance() + Waila.CONFIG.get().getGeneral().getReachDistance();
-		this.target = this.rayTrace(viewpoint, reach, mc.getRenderPartialTicks());
+		float reach = mc.gameMode.getPickRange() + Waila.CONFIG.get().getGeneral().getReachDistance();
+		this.target = this.rayTrace(viewpoint, reach, mc.getFrameTime());
 	}
 
 	public RayTraceResult getTarget() {
@@ -84,21 +84,21 @@ public class RayTracing {
 	public RayTraceResult rayTrace(Entity entity, double playerReach, float partialTicks) {
 		Vector3d eyePosition = entity.getEyePosition(partialTicks);
 		Vector3d traceEnd;
-		if (mc.objectMouseOver != null && mc.objectMouseOver.getType() == Type.BLOCK) {
-			traceEnd = mc.objectMouseOver.getHitVec();
+		if (mc.hitResult != null && mc.hitResult.getType() == Type.BLOCK) {
+			traceEnd = mc.hitResult.getLocation();
 			traceEnd = eyePosition.add(traceEnd.subtract(eyePosition).scale(1.01));
 		} else {
-			Vector3d lookVector = entity.getLook(partialTicks);
+			Vector3d lookVector = entity.getViewVector(partialTicks);
 			traceEnd = eyePosition.add(lookVector.x * playerReach, lookVector.y * playerReach, lookVector.z * playerReach);
 		}
 
-		World world = entity.getEntityWorld();
+		World world = entity.getCommandSenderWorld();
 		AxisAlignedBB bound = new AxisAlignedBB(eyePosition, traceEnd);
 		Predicate<Entity> predicate = e -> canBeTarget(e, entity);
 		EntityRayTraceResult entityResult = rayTraceEntities(world, entity, eyePosition, traceEnd, bound, predicate);
 
-		if (mc.objectMouseOver != null && mc.objectMouseOver.getType() == Type.BLOCK) {
-			Vector3d lookVector = entity.getLook(partialTicks);
+		if (mc.hitResult != null && mc.hitResult.getType() == Type.BLOCK) {
+			Vector3d lookVector = entity.getViewVector(partialTicks);
 			traceEnd = eyePosition.add(lookVector.x * playerReach, lookVector.y * playerReach, lookVector.z * playerReach);
 		}
 
@@ -109,10 +109,10 @@ public class RayTracing {
 		}
 		RayTraceContext context = new RayTraceContext(eyePosition, traceEnd, RayTraceContext.BlockMode.OUTLINE, fluidView, entity);
 
-		BlockRayTraceResult blockResult = world.rayTraceBlocks(context);
+		BlockRayTraceResult blockResult = world.clip(context);
 		if (entityResult != null && blockResult != null && blockResult.getType() == Type.BLOCK) {
-			double entityDist = entityResult.getHitVec().squareDistanceTo(eyePosition);
-			double blockDist = blockResult.getHitVec().squareDistanceTo(eyePosition);
+			double entityDist = entityResult.getLocation().distanceToSqr(eyePosition);
+			double blockDist = blockResult.getLocation().distanceToSqr(eyePosition);
 			if (entityDist > blockDist) {
 				return blockResult;
 			}
@@ -132,19 +132,19 @@ public class RayTracing {
 	private boolean canBeTarget(Entity target, Entity viewEntity) {
 		if (target.isSpectator())
 			return false;
-		if (target == viewEntity.getRidingEntity())
+		if (target == viewEntity.getVehicle())
 			return false;
 		if (viewEntity instanceof PlayerEntity) {
-			if (target.isInvisibleToPlayer((PlayerEntity) viewEntity))
+			if (target.isInvisibleTo((PlayerEntity) viewEntity))
 				return false;
 		} else {
 			if (target.isInvisible())
 				return false;
 		}
-		if (!target.hasCustomName() && target.getName() instanceof TranslationTextComponent && !I18n.hasKey(((TranslationTextComponent)target.getName()).getKey())) {
+		if (!target.hasCustomName() && target.getName() instanceof TranslationTextComponent && !I18n.exists(((TranslationTextComponent)target.getName()).getKey())) {
 			return false;
 		}
-		if (Waila.CONFIG.get().getGeneral().getEntityBlacklist().contains(target.getEntityString())) {
+		if (Waila.CONFIG.get().getGeneral().getEntityBlacklist().contains(target.getEncodeId())) {
 			return false;
 		}
 		return true;
@@ -156,14 +156,14 @@ public class RayTracing {
 		double d0 = Double.MAX_VALUE;
 		Entity entity = null;
 
-		for (Entity entity1 : worldIn.getEntitiesInAABBexcluding(projectile, boundingBox, filter)) {
+		for (Entity entity1 : worldIn.getEntities(projectile, boundingBox, filter)) {
 			AxisAlignedBB axisalignedbb = entity1.getBoundingBox();
-			if (axisalignedbb.getAverageEdgeLength() < 0.3) {
-				axisalignedbb = axisalignedbb.grow(0.3);
+			if (axisalignedbb.getSize() < 0.3) {
+				axisalignedbb = axisalignedbb.inflate(0.3);
 			}
-			Optional<Vector3d> optional = axisalignedbb.rayTrace(startVec, endVec);
+			Optional<Vector3d> optional = axisalignedbb.clip(startVec, endVec);
 			if (optional.isPresent()) {
-				double d1 = startVec.squareDistanceTo(optional.get());
+				double d1 = startVec.distanceToSqr(optional.get());
 				if (d1 < d0) {
 					entity = entity1;
 					d0 = d1;
@@ -214,13 +214,13 @@ public class RayTracing {
 			break;
 		}
 		case BLOCK: {
-			World world = mc.world;
-			BlockPos pos = ((BlockRayTraceResult) target).getPos();
+			World world = mc.level;
+			BlockPos pos = ((BlockRayTraceResult) target).getBlockPos();
 			BlockState state = world.getBlockState(pos);
 			if (state.getBlock().isAir(state, world, pos))
 				return items;
 
-			TileEntity tile = world.getTileEntity(pos);
+			TileEntity tile = world.getBlockEntity(pos);
 
 			if (WailaRegistrar.INSTANCE.hasStackProviders(state.getBlock()))
 				handleStackProviders(items, WailaRegistrar.INSTANCE.getStackProviders(state.getBlock()).values());

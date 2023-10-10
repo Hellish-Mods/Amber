@@ -227,7 +227,7 @@ public class WailaConfig {
 		}
 
 		public float tryFlip(float f) {
-			if (Minecraft.getInstance().gameSettings.mainHand == HandSide.LEFT)
+			if (Minecraft.getInstance().options.mainHand == HandSide.LEFT)
 				f = 1 - f;
 			return f;
 		}

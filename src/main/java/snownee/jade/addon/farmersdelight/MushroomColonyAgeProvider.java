@@ -18,6 +18,6 @@ public class MushroomColonyAgeProvider implements IComponentProvider {
     public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
         if (!config.get(AmberPlugin.MUSHROOM_COLONY) || !ModList.get().isLoaded("farmersdelight") || !(accessor.getBlock() instanceof MushroomColonyBlock)) return;
 
-        tooltip.add(new TranslationTextComponent("amber.mushroom_colony", accessor.getBlockState().get(((MushroomColonyBlock)accessor.getBlock()).getAgeProperty()), ((MushroomColonyBlock)accessor.getBlock()).getMaxAge()));
+        tooltip.add(new TranslationTextComponent("amber.mushroom_colony", accessor.getBlockState().getValue(((MushroomColonyBlock)accessor.getBlock()).getAgeProperty()), ((MushroomColonyBlock)accessor.getBlock()).getMaxAge()));
     }
 }

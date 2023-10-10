@@ -21,8 +21,8 @@ public class StringTooltipRenderer implements ITooltipRenderer {
 		int ox = tag.getInt("x");
 		int oy = tag.getInt("y");
 		String s = tag.getString("text");
-		FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-		return new Dimension(ox + fontRenderer.getStringWidth(s), oy + (s.isEmpty() ? 0 : 8));
+		FontRenderer fontRenderer = Minecraft.getInstance().font;
+		return new Dimension(ox + fontRenderer.width(s), oy + (s.isEmpty() ? 0 : 8));
 	}
 
 	@Override
@@ -30,9 +30,9 @@ public class StringTooltipRenderer implements ITooltipRenderer {
 		int ox = tag.getInt("x");
 		int oy = tag.getInt("y");
 		String s = tag.getString("text");
-		FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+		FontRenderer fontRenderer = Minecraft.getInstance().font;
 		WailaConfig.ConfigOverlay.ConfigOverlayColor color = Waila.CONFIG.get().getOverlay().getColor();
-		fontRenderer.drawStringWithShadow(new MatrixStack(), s, x + ox, y + oy, color.getFontColor());
+		fontRenderer.drawShadow(new MatrixStack(), s, x + ox, y + oy, color.getFontColor());
 	}
 
 }

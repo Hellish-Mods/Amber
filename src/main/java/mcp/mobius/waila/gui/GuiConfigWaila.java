@@ -34,7 +34,7 @@ public class GuiConfigWaila extends GuiOptions {
 		ConfigFormatting formatting = Waila.CONFIG.get().getFormatting();
 		OptionsListWidget options = new OptionsListWidget(this, minecraft, width + 45, height, 32, height - 32, 30, Waila.CONFIG::save);
 		options.add(new OptionsEntryButton("general", new Button(0, 0, 100, 20, StringTextComponent.EMPTY, w -> {
-			minecraft.displayGuiScreen(new GuiOptions(GuiConfigWaila.this, "general") {
+			minecraft.setScreen(new GuiOptions(GuiConfigWaila.this, "general") {
 				@Override
 				public OptionsListWidget getOptions() {
 					OptionsListWidget options = new OptionsListWidget(this, minecraft, width + 45, height, 32, height - 32, 30);
@@ -53,7 +53,7 @@ public class GuiConfigWaila extends GuiOptions {
 			});
 		})));
 		options.add(new OptionsEntryButton("overlay", new Button(0, 0, 100, 20, StringTextComponent.EMPTY, w -> {
-			minecraft.displayGuiScreen(new GuiOptions(GuiConfigWaila.this, "overlay") {
+			minecraft.setScreen(new GuiOptions(GuiConfigWaila.this, "overlay") {
 				@Override
 				public OptionsListWidget getOptions() {
 					OptionsListWidget options = new OptionsListWidget(this, minecraft, width + 45, height, 32, height - 32, 30);
@@ -70,7 +70,7 @@ public class GuiConfigWaila extends GuiOptions {
 			});
 		})));
 		options.add(new OptionsEntryButton("formatting", new Button(0, 0, 100, 20, StringTextComponent.EMPTY, w -> {
-			minecraft.displayGuiScreen(new GuiOptions(GuiConfigWaila.this, "formatting") {
+			minecraft.setScreen(new GuiOptions(GuiConfigWaila.this, "formatting") {
 				@Override
 				public OptionsListWidget getOptions() {
 					OptionsListWidget options = new OptionsListWidget(this, minecraft, width + 45, height, 32, height - 32, 30);

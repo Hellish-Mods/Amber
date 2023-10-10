@@ -45,17 +45,17 @@ public class HUDHandlerBlocks implements IComponentProvider, IServerDataProvider
 	public void appendHead(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
 		ITextComponent name = null;
 		if (accessor.getServerData().contains("givenName", Constants.NBT.TAG_STRING)) {
-			name = ITextComponent.Serializer.getComponentFromJson(accessor.getServerData().getString("givenName"));
+			name = ITextComponent.Serializer.fromJson(accessor.getServerData().getString("givenName"));
 		}
-		if (name == null && accessor.getBlockState().isIn(Jade.PICK)) {
+		if (name == null && accessor.getBlockState().is(Jade.PICK)) {
 			ItemStack pick = accessor.getBlockState().getPickBlock(accessor.getHitResult(), accessor.getWorld(), accessor.getPosition(), accessor.getPlayer());
 			if (pick != null && !pick.isEmpty())
 				name = pick.getDisplayName();
 		}
 		if (name == null) {
-			String key = accessor.getBlock().getTranslationKey();
-			if (I18n.hasKey(key)) {
-				name = accessor.getBlock().getTranslatedName();
+			String key = accessor.getBlock().getDescriptionId();
+			if (I18n.exists(key)) {
+				name = accessor.getBlock().getName();
 			} else {
 				ItemStack stack = accessor.getBlockState().getPickBlock(accessor.getHitResult(), accessor.getWorld(), accessor.getPosition(), accessor.getPlayer());
 				if (stack != null && !stack.isEmpty()) {
@@ -67,7 +67,7 @@ public class HUDHandlerBlocks implements IComponentProvider, IServerDataProvider
 		}
 		((ITaggableList<ResourceLocation, ITextComponent>) tooltip).setTag(OBJECT_NAME_TAG, new StringTextComponent(String.format(Waila.CONFIG.get().getFormatting().getBlockName(), name.getString())));
 		if (config.get(PluginCore.CONFIG_SHOW_REGISTRY))
-			((ITaggableList<ResourceLocation, ITextComponent>) tooltip).setTag(REGISTRY_NAME_TAG, new StringTextComponent(accessor.getBlock().getRegistryName().toString()).mergeStyle(TextFormatting.GRAY));
+			((ITaggableList<ResourceLocation, ITextComponent>) tooltip).setTag(REGISTRY_NAME_TAG, new StringTextComponent(accessor.getBlock().getRegistryName().toString()).withStyle(TextFormatting.GRAY));
 		if (accessor.getBlock() instanceof TrappedChestBlock) {
 			TrappedChestProvider.INSTANCE.appendHead(tooltip, accessor, config);
 		}
@@ -83,9 +83,9 @@ public class HUDHandlerBlocks implements IComponentProvider, IServerDataProvider
 			ITextComponent[] lines = new ITextComponent[properties.size()];
 			int i = 0;
 			for (Property<?> p : state.getProperties()) {
-				Comparable<?> value = state.get(p);
-				ITextComponent valueText = new StringTextComponent(" " + value.toString()).mergeStyle(p instanceof BooleanProperty ? value == Boolean.TRUE ? TextFormatting.GREEN : TextFormatting.RED : TextFormatting.WHITE);
-				lines[i] = new StringTextComponent(p.getName() + ":").appendSibling(valueText);
+				Comparable<?> value = state.getValue(p);
+				ITextComponent valueText = new StringTextComponent(" " + value.toString()).withStyle(p instanceof BooleanProperty ? value == Boolean.TRUE ? TextFormatting.GREEN : TextFormatting.RED : TextFormatting.WHITE);
+				lines[i] = new StringTextComponent(p.getName() + ":").append(valueText);
 				++i;
 			}
 			tooltip.add(Renderables.box(lines));

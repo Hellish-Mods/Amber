@@ -34,20 +34,20 @@ public final class ClientHandler {
 			return;
 		}
 		Minecraft mc = Minecraft.getInstance();
-		PlayerController playerController = mc.playerController;
-		if (playerController == null || !mc.world.isBlockPresent(playerController.currentBlock)) {
+		PlayerController playerController = mc.gameMode;
+		if (playerController == null || !mc.level.isLoaded(playerController.destroyBlockPos)) {
 			return;
 		}
-		BlockState state = mc.world.getBlockState(playerController.currentBlock);
-		if (playerController.getIsHittingBlock())
-			canHarvest = ForgeHooks.canHarvestBlock(state, mc.player, mc.world, playerController.currentBlock);
+		BlockState state = mc.level.getBlockState(playerController.destroyBlockPos);
+		if (playerController.isDestroying())
+			canHarvest = ForgeHooks.canHarvestBlock(state, mc.player, mc.level, playerController.destroyBlockPos);
 		int color = canHarvest ? 0xFFFFFF : 0xFF4444;
 		Rectangle rect = event.getPosition();
-		progressAlpha += mc.getTickLength() * (playerController.getIsHittingBlock() ? 0.1F : -0.1F);
-		if (playerController.getIsHittingBlock()) {
+		progressAlpha += mc.getDeltaFrameTime() * (playerController.isDestroying() ? 0.1F : -0.1F);
+		if (playerController.isDestroying()) {
 			progressAlpha = Math.min(progressAlpha, 0.53F); //0x88 = 0.53 * 255
-			float progress = state.getPlayerRelativeBlockHardness(mc.player, mc.player.world, playerController.currentBlock);
-			progress = playerController.curBlockDamageMP + mc.getRenderPartialTicks() * progress;
+			float progress = state.getDestroyProgress(mc.player, mc.player.level, playerController.destroyBlockPos);
+			progress = playerController.destroyProgress + mc.getFrameTime() * progress;
 			progress = MathHelper.clamp(progress, 0, 1);
 			savedProgress = progress;
 		} else {

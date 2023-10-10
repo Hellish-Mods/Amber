@@ -17,7 +17,7 @@ public class MessageRequestEntity {
 	public int entityId;
 
 	public MessageRequestEntity(Entity entity) {
-		this.entityId = entity.getEntityId();
+		this.entityId = entity.getId();
 	}
 
 	private MessageRequestEntity(int entityId) {
@@ -37,22 +37,22 @@ public class MessageRequestEntity {
 		public static void onMessage(final MessageRequestEntity message, Supplier<NetworkEvent.Context> context) {
 			context.get().enqueueWork(() -> {
 				ServerPlayerEntity player = context.get().getSender();
-				World world = player.world;
-				Entity entity = world.getEntityByID(message.entityId);
+				World world = player.level;
+				Entity entity = world.getEntity(message.entityId);
 
-				if (entity == null || player.getDistanceSq(entity) > MessageRequestTile.MAX_DISTANCE_SQR)
+				if (entity == null || player.distanceToSqr(entity) > MessageRequestTile.MAX_DISTANCE_SQR)
 					return;
 
 				CompoundNBT tag = new CompoundNBT();
 				if (WailaRegistrar.INSTANCE.hasNBTEntityProviders(entity)) {
 					WailaRegistrar.INSTANCE.getNBTEntityProviders(entity).values().forEach(l -> l.forEach(p -> p.appendServerData(tag, player, world, entity)));
 				} else {
-					entity.writeWithoutTypeId(tag);
+					entity.saveWithoutId(tag);
 				}
 
-				tag.putInt("WailaEntityID", entity.getEntityId());
+				tag.putInt("WailaEntityID", entity.getId());
 
-				Waila.NETWORK.sendTo(new MessageReceiveData(tag), player.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
+				Waila.NETWORK.sendTo(new MessageReceiveData(tag), player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
 			});
 			context.get().setPacketHandled(true);
 		}

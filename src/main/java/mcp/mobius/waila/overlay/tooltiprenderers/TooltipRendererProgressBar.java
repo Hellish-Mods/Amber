@@ -24,7 +24,7 @@ public class TooltipRendererProgressBar implements ITooltipRenderer {
 	public void draw(CompoundNBT tag, ICommonAccessor accessor, int x, int y) {
 		int currentValue = tag.getInt("progress");
 
-		Minecraft.getInstance().getTextureManager().bindTexture(SHEET);
+		Minecraft.getInstance().getTextureManager().bind(SHEET);
 
 		// Draws the "empty" background arrow
 		DisplayUtil.drawTexturedModalRect(RenderContext.matrixStack, x + 2, y, 0, 16, 22, 16, 22, 16);

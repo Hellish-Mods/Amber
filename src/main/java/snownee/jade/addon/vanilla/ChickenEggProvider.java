@@ -29,7 +29,7 @@ public class ChickenEggProvider implements IEntityComponentProvider, IServerData
 	@Override
 	public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, Entity entity) {
 		ChickenEntity chicken = (ChickenEntity) entity;
-		tag.putInt("NextEgg", chicken.timeUntilNextEgg / 20);
+		tag.putInt("NextEgg", chicken.eggTime / 20);
 	}
 
 }

@@ -48,26 +48,26 @@ public class OptionsListWidget extends AbstractList<OptionsListWidget.Entry> {
 		RenderSystem.disableLighting();
 		RenderSystem.disableFog();
 		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder bufferBuilder = tessellator.getBuffer();
-		this.minecraft.getTextureManager().bindTexture(BACKGROUND_LOCATION);
+		BufferBuilder bufferBuilder = tessellator.getBuilder();
+		this.minecraft.getTextureManager().bind(BACKGROUND_LOCATION);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		int rowLeft = this.getRowLeft();
 		int scrollJump = this.y0 + 4 - (int) this.getScrollAmount();
 
 		this.renderList(matrixStack, rowLeft, scrollJump, mouseX, mouseY, delta);
-		this.minecraft.getTextureManager().bindTexture(BACKGROUND_LOCATION);
+		this.minecraft.getTextureManager().bind(BACKGROUND_LOCATION);
 		RenderSystem.enableDepthTest();
 		RenderSystem.depthFunc(519);
 		bufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		bufferBuilder.pos(this.x0, this.y0, -100.0D).tex(0.0F, this.y0 / 32.0F).color(64, 64, 64, 255).endVertex();
-		bufferBuilder.pos((this.x0 + this.width), this.y0, -100.0D).tex(this.width / 32.0F, this.y0 / 32.0F).color(64, 64, 64, 255).endVertex();
-		bufferBuilder.pos((this.x0 + this.width), 0.0D, -100.0D).tex(this.width / 32.0F, 0.0F).color(64, 64, 64, 255).endVertex();
-		bufferBuilder.pos(this.x0, 0.0D, -100.0D).tex(0.0F, 0.0F).color(64, 64, 64, 255).endVertex();
-		bufferBuilder.pos(this.x0, this.height, -100.0D).tex(0.0F, this.height / 32.0F).color(64, 64, 64, 255).endVertex();
-		bufferBuilder.pos((this.x0 + this.width), this.height, -100.0D).tex(this.width / 32.0F, this.height / 32.0F).color(64, 64, 64, 255).endVertex();
-		bufferBuilder.pos((this.x0 + this.width), this.y1, -100.0D).tex(this.width / 32.0F, this.y1 / 32.0F).color(64, 64, 64, 255).endVertex();
-		bufferBuilder.pos(this.x0, this.y1, -100.0D).tex(0.0F, this.y1 / 32.0F).color(64, 64, 64, 255).endVertex();
-		tessellator.draw();
+		bufferBuilder.vertex(this.x0, this.y0, -100.0D).uv(0.0F, this.y0 / 32.0F).color(64, 64, 64, 255).endVertex();
+		bufferBuilder.vertex((this.x0 + this.width), this.y0, -100.0D).uv(this.width / 32.0F, this.y0 / 32.0F).color(64, 64, 64, 255).endVertex();
+		bufferBuilder.vertex((this.x0 + this.width), 0.0D, -100.0D).uv(this.width / 32.0F, 0.0F).color(64, 64, 64, 255).endVertex();
+		bufferBuilder.vertex(this.x0, 0.0D, -100.0D).uv(0.0F, 0.0F).color(64, 64, 64, 255).endVertex();
+		bufferBuilder.vertex(this.x0, this.height, -100.0D).uv(0.0F, this.height / 32.0F).color(64, 64, 64, 255).endVertex();
+		bufferBuilder.vertex((this.x0 + this.width), this.height, -100.0D).uv(this.width / 32.0F, this.height / 32.0F).color(64, 64, 64, 255).endVertex();
+		bufferBuilder.vertex((this.x0 + this.width), this.y1, -100.0D).uv(this.width / 32.0F, this.y1 / 32.0F).color(64, 64, 64, 255).endVertex();
+		bufferBuilder.vertex(this.x0, this.y1, -100.0D).uv(0.0F, this.y1 / 32.0F).color(64, 64, 64, 255).endVertex();
+		tessellator.end();
 		RenderSystem.depthFunc(515);
 		RenderSystem.disableDepthTest();
 		RenderSystem.enableBlend();
@@ -76,15 +76,15 @@ public class OptionsListWidget extends AbstractList<OptionsListWidget.Entry> {
 		RenderSystem.shadeModel(7425);
 		RenderSystem.disableTexture();
 		bufferBuilder.begin(7, DefaultVertexFormats.POSITION_COLOR_TEX);
-		bufferBuilder.pos(this.x0, this.y0 + 4, 0.0D).color(0, 0, 0, 0).tex(0.0f, 1.0f).endVertex();
-		bufferBuilder.pos(this.x1, this.y0 + 4, 0.0D).color(0, 0, 0, 0).tex(1.0f, 1.0f).endVertex();
-		bufferBuilder.pos(this.x1, this.y0, 0.0D).color(0, 0, 0, 255).tex(1.0f, 0.0f).endVertex();
-		bufferBuilder.pos(this.x0, this.y0, 0.0D).color(0, 0, 0, 255).tex(0.0f, 0.0f).endVertex();
-		bufferBuilder.pos(this.x0, this.y1, 0.0D).color(0, 0, 0, 255).tex(0.0f, 1.0f).endVertex();
-		bufferBuilder.pos(this.x1, this.y1, 0.0D).color(0, 0, 0, 255).tex(1.0f, 1.0f).endVertex();
-		bufferBuilder.pos(this.x1, this.y1 - 4, 0.0D).color(0, 0, 0, 0).tex(1.0f, 0.0f).endVertex();
-		bufferBuilder.pos(this.x0, this.y1 - 4, 0.0D).color(0, 0, 0, 0).tex(0.0f, 0.0f).endVertex();
-		tessellator.draw();
+		bufferBuilder.vertex(this.x0, this.y0 + 4, 0.0D).color(0, 0, 0, 0).uv(0.0f, 1.0f).endVertex();
+		bufferBuilder.vertex(this.x1, this.y0 + 4, 0.0D).color(0, 0, 0, 0).uv(1.0f, 1.0f).endVertex();
+		bufferBuilder.vertex(this.x1, this.y0, 0.0D).color(0, 0, 0, 255).uv(1.0f, 0.0f).endVertex();
+		bufferBuilder.vertex(this.x0, this.y0, 0.0D).color(0, 0, 0, 255).uv(0.0f, 0.0f).endVertex();
+		bufferBuilder.vertex(this.x0, this.y1, 0.0D).color(0, 0, 0, 255).uv(0.0f, 1.0f).endVertex();
+		bufferBuilder.vertex(this.x1, this.y1, 0.0D).color(0, 0, 0, 255).uv(1.0f, 1.0f).endVertex();
+		bufferBuilder.vertex(this.x1, this.y1 - 4, 0.0D).color(0, 0, 0, 0).uv(1.0f, 0.0f).endVertex();
+		bufferBuilder.vertex(this.x0, this.y1 - 4, 0.0D).color(0, 0, 0, 0).uv(0.0f, 0.0f).endVertex();
+		tessellator.end();
 		int int_8 = Math.max(0, this.getMaxPosition() - (this.y1 - this.y0 - 4));
 		if (int_8 > 0) {
 			int int_9 = (int) ((float) ((this.y1 - this.y0) * (this.y1 - this.y0)) / (float) this.getMaxPosition());
@@ -95,19 +95,19 @@ public class OptionsListWidget extends AbstractList<OptionsListWidget.Entry> {
 			}
 
 			bufferBuilder.begin(7, DefaultVertexFormats.POSITION_COLOR_TEX);
-			bufferBuilder.pos(scrollPosX, this.y1, 0.0D).color(0, 0, 0, 255).tex(0.0f, 1.0f).endVertex();
-			bufferBuilder.pos(j, this.y1, 0.0D).color(0, 0, 0, 255).tex(1.0f, 1.0f).endVertex();
-			bufferBuilder.pos(j, this.y0, 0.0D).color(0, 0, 0, 255).tex(1.0f, 0.0f).endVertex();
-			bufferBuilder.pos(scrollPosX, this.y0, 0.0D).color(0, 0, 0, 255).tex(0.0f, 0.0f).endVertex();
-			bufferBuilder.pos(scrollPosX, (int_10 + int_9), 0.0D).color(128, 128, 128, 255).tex(0.0f, 1.0f).endVertex();
-			bufferBuilder.pos(j, (int_10 + int_9), 0.0D).color(128, 128, 128, 255).tex(1.0f, 1.0f).endVertex();
-			bufferBuilder.pos(j, int_10, 0.0D).color(128, 128, 128, 255).tex(1.0f, 0.0f).endVertex();
-			bufferBuilder.pos(scrollPosX, int_10, 0.0D).color(128, 128, 128, 255).tex(0.0f, 0.0f).endVertex();
-			bufferBuilder.pos(scrollPosX, (int_10 + int_9 - 1), 0.0D).color(192, 192, 192, 255).tex(0.0f, 1.0f).endVertex();
-			bufferBuilder.pos(j - 1, int_10 + int_9 - 1, 0.0D).color(192, 192, 192, 255).tex(1.0f, 1.0f).endVertex();
-			bufferBuilder.pos(j - 1, int_10, 0.0D).color(192, 192, 192, 255).tex(1.0f, 0.0f).endVertex();
-			bufferBuilder.pos(scrollPosX, int_10, 0.0D).color(192, 192, 192, 255).tex(0.0f, 0.0f).endVertex();
-			tessellator.draw();
+			bufferBuilder.vertex(scrollPosX, this.y1, 0.0D).color(0, 0, 0, 255).uv(0.0f, 1.0f).endVertex();
+			bufferBuilder.vertex(j, this.y1, 0.0D).color(0, 0, 0, 255).uv(1.0f, 1.0f).endVertex();
+			bufferBuilder.vertex(j, this.y0, 0.0D).color(0, 0, 0, 255).uv(1.0f, 0.0f).endVertex();
+			bufferBuilder.vertex(scrollPosX, this.y0, 0.0D).color(0, 0, 0, 255).uv(0.0f, 0.0f).endVertex();
+			bufferBuilder.vertex(scrollPosX, (int_10 + int_9), 0.0D).color(128, 128, 128, 255).uv(0.0f, 1.0f).endVertex();
+			bufferBuilder.vertex(j, (int_10 + int_9), 0.0D).color(128, 128, 128, 255).uv(1.0f, 1.0f).endVertex();
+			bufferBuilder.vertex(j, int_10, 0.0D).color(128, 128, 128, 255).uv(1.0f, 0.0f).endVertex();
+			bufferBuilder.vertex(scrollPosX, int_10, 0.0D).color(128, 128, 128, 255).uv(0.0f, 0.0f).endVertex();
+			bufferBuilder.vertex(scrollPosX, (int_10 + int_9 - 1), 0.0D).color(192, 192, 192, 255).uv(0.0f, 1.0f).endVertex();
+			bufferBuilder.vertex(j - 1, int_10 + int_9 - 1, 0.0D).color(192, 192, 192, 255).uv(1.0f, 1.0f).endVertex();
+			bufferBuilder.vertex(j - 1, int_10, 0.0D).color(192, 192, 192, 255).uv(1.0f, 0.0f).endVertex();
+			bufferBuilder.vertex(scrollPosX, int_10, 0.0D).color(192, 192, 192, 255).uv(0.0f, 0.0f).endVertex();
+			tessellator.end();
 		}
 
 		this.renderDecorations(matrixStack, mouseX, mouseY);
@@ -118,7 +118,7 @@ public class OptionsListWidget extends AbstractList<OptionsListWidget.Entry> {
 	}
 
 	public void save() {
-		getEventListeners().stream().filter(e -> e instanceof OptionsEntryValue).map(e -> (OptionsEntryValue) e).forEach(OptionsEntryValue::save);
+		children().stream().filter(e -> e instanceof OptionsEntryValue).map(e -> (OptionsEntryValue) e).forEach(OptionsEntryValue::save);
 		if (diskWriter != null)
 			diskWriter.run();
 	}
@@ -127,7 +127,7 @@ public class OptionsListWidget extends AbstractList<OptionsListWidget.Entry> {
 		if (entry instanceof OptionsEntryValue) {
 			IGuiEventListener element = ((OptionsEntryValue) entry).getListener();
 			if (element != null)
-				owner.addListener(element);
+				owner.addWidget(element);
 		}
 		addEntry(entry);
 	}
@@ -141,7 +141,7 @@ public class OptionsListWidget extends AbstractList<OptionsListWidget.Entry> {
 		}
 
 		public static String makeKey(String key) {
-			return Util.makeTranslationKey("config", new ResourceLocation(Waila.MODID, key));
+			return Util.makeDescriptionId("config", new ResourceLocation(Waila.MODID, key));
 		}
 
 		public Entry() {

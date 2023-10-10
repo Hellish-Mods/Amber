@@ -34,13 +34,13 @@ public class VillagerProfessionProvider implements IEntityComponentProvider {
 
 	private static ITextComponent getNameRaw(Entity entity) {
 		ITextComponent itextcomponent = entity.getCustomName();
-		return itextcomponent != null ? sanitizeName(itextcomponent) : entity.getType().getName();
+		return itextcomponent != null ? sanitizeName(itextcomponent) : entity.getType().getDescription();
 	}
 
 	private static ITextComponent sanitizeName(ITextComponent name) {
-		IFormattableTextComponent iformattabletextcomponent = name.copyRaw().setStyle(name.getStyle().setClickEvent((ClickEvent) null));
+		IFormattableTextComponent iformattabletextcomponent = name.plainCopy().setStyle(name.getStyle().withClickEvent((ClickEvent) null));
 		for (ITextComponent itextcomponent : name.getSiblings()) {
-			iformattabletextcomponent.appendSibling(sanitizeName(itextcomponent));
+			iformattabletextcomponent.append(sanitizeName(itextcomponent));
 		}
 		return iformattabletextcomponent;
 	}
@@ -61,10 +61,10 @@ public class VillagerProfessionProvider implements IEntityComponentProvider {
 		}
 		int level = data.getLevel();
 		ResourceLocation profName = data.getProfession().getRegistryName();
-		IFormattableTextComponent component = new TranslationTextComponent(EntityType.VILLAGER.getTranslationKey() + '.' + (!"minecraft".equals(profName.getNamespace()) ? profName.getNamespace() + '.' : "") + profName.getPath());
+		IFormattableTextComponent component = new TranslationTextComponent(EntityType.VILLAGER.getDescriptionId() + '.' + (!"minecraft".equals(profName.getNamespace()) ? profName.getNamespace() + '.' : "") + profName.getPath());
 		VillagerProfession profession = data.getProfession();
 		if (profession != VillagerProfession.NONE && profession != VillagerProfession.NITWIT) {
-			component.appendSibling(LEVEL_SEPARATOR).appendSibling(new TranslationTextComponent("merchant.level." + level));
+			component.append(LEVEL_SEPARATOR).append(new TranslationTextComponent("merchant.level." + level));
 		}
 		tooltip.add(component);
 	}

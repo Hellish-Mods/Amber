@@ -33,8 +33,8 @@ public class ChannelProvider implements IComponentProvider, IServerDataProvider<
     @Override
 	public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, TileEntity te) {
         if (!ModList.get().isLoaded("appliedenergistics2") || !(te instanceof IPartHost)) return;
-        BlockPos pos = te.getPos();
-        IPart part = ((IPartHost)te).selectPart(player.pick(20, 0, false).getHitVec().add(-pos.getX(), -pos.getY(), -pos.getZ())).part;
+        BlockPos pos = te.getBlockPos();
+        IPart part = ((IPartHost)te).selectPart(player.pick(20, 0, false).getLocation().add(-pos.getX(), -pos.getY(), -pos.getZ())).part;
 
         if (!(part instanceof IUsedChannelProvider)) return;
         IUsedChannelProvider partInfo = (IUsedChannelProvider)part;
