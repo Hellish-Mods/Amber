@@ -64,6 +64,7 @@
   "config.waila.plugin_jade.item_tooltip": "Artikel-Tooltip",
   "jade.spawner": "%s (%s)",
 
+  "config.waila.plugin_amber": "Amber",
   "config.waila.plugin_amber.forge_energy": "Energie",
   "amber.fe": "FE: %d/%d",
   "config.waila.plugin_amber.ae2_channels": "AE2 Kanäle",

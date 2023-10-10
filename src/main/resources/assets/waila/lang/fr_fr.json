@@ -47,6 +47,8 @@
   "config.waila.tts": "Activer TTS",
   "config.waila.tts_desc": "Lire les noms des blocs et des entités avec le processeur de la synthèse vocale du système",
   "config.waila.reach_distance": "Portée étendue",
+  "config.waila.block_blacklist": "Liste noire des blocs",
+  "config.waila.block_blacklist_desc": "Les blocs qui seront mis sur la liste noire de la boîte d'information, séparés par des virgules",
   "config.waila.entity_blacklist": "Liste noire des entités",
   "config.waila.entity_blacklist_desc": "Les entités qui seront mises sur la liste noire de la boîte d'information, séparées par des virgules",
 

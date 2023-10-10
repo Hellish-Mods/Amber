@@ -69,9 +69,8 @@ task deobfJar(type: Jar) {
 }
 
 repositories {
-    maven {
-        name = "jei"
-        url = "https://dvs1.progwml6.com/files/maven"
+    maven { // JEI
+        url = "https://maven.blamejared.com/"
     }
     maven {
         url = "https://www.cursemaven.com"
