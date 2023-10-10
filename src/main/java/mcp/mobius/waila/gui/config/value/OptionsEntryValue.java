@@ -24,7 +24,7 @@ public abstract class OptionsEntryValue<T> extends OptionsListWidget.Entry {
 
 	@Override
 	public final void render(MatrixStack matrixStack, int index, int rowTop, int rowLeft, int width, int height, int mouseX, int mouseY, boolean hovered, float deltaTime) {
-		client.fontRenderer.drawStringWithShadow(matrixStack, title.getString(), rowLeft + 10, rowTop + (height / 4) + (client.fontRenderer.FONT_HEIGHT / 2), 16777215);
+		client.font.drawShadow(matrixStack, title.getString(), rowLeft + 10, rowTop + (height / 4) + (client.font.lineHeight / 2), 16777215);
 		drawValue(matrixStack, width, height, rowLeft, rowTop, mouseX, mouseY, hovered, deltaTime);
 		this.x = rowLeft;
 	}

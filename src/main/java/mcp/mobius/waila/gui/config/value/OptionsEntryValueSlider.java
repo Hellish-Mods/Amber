@@ -52,11 +52,11 @@ public class OptionsEntryValueSlider extends OptionsEntryValue<Float> {
 		public Slider(OptionsEntryValueSlider value, int x, int y, int width, int height, ITextComponent message) {
 			super(x, y, width, height, message, fromScaled(value.value, value.min, value.max));
 			this.value = value;
-			func_230972_a_();
+			applyValue();
 		}
 
 		public float toScaled() {
-			return value.min + (value.max - value.min) * (float) sliderValue;
+			return value.min + (value.max - value.min) * (float) super.value;
 		}
 
 		public static double fromScaled(float f, float min, float max) {
@@ -65,14 +65,14 @@ public class OptionsEntryValueSlider extends OptionsEntryValue<Float> {
 
 		//save?
 		@Override
-		protected void func_230979_b_() {
+		protected void updateMessage() {
 			value.value = toScaled();
 			value.save();
 		}
 
 		//get title
 		@Override
-		protected void func_230972_a_() {
+		protected void applyValue() {
 			setMessage(new StringTextComponent(Jade.dfCommas.format(toScaled())));
 		}
 	}

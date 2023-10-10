@@ -23,7 +23,7 @@ public class OptionsEntryButton extends OptionsListWidget.Entry {
 
 	@Override
 	public void render(MatrixStack matrixStack, int index, int rowTop, int rowLeft, int width, int height, int mouseX, int mouseY, boolean hovered, float deltaTime) {
-		client.fontRenderer.drawStringWithShadow(matrixStack, title.getString(), rowLeft + 10, rowTop + (height / 4) + (client.fontRenderer.FONT_HEIGHT / 2), 16777215);
+		client.font.drawShadow(matrixStack, title.getString(), rowLeft + 10, rowTop + (height / 4) + (client.font.lineHeight / 2), 16777215);
 		this.button.x = rowLeft + 135;
 		this.button.y = rowTop + height / 6;
 		this.button.render(matrixStack, mouseX, mouseY, deltaTime);
@@ -32,7 +32,7 @@ public class OptionsEntryButton extends OptionsListWidget.Entry {
 	@Override
 	public boolean mouseClicked(double mouseY, double mouseX, int button) {
 		if (button == 0 && this.button.isHovered()) {
-			this.button.playDownSound(Minecraft.getInstance().getSoundHandler());
+			this.button.playDownSound(Minecraft.getInstance().getSoundManager());
 			this.button.onPress();
 			return true;
 		}

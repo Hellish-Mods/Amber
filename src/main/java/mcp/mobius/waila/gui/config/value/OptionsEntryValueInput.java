@@ -22,9 +22,9 @@ public class OptionsEntryValueInput<T> extends OptionsEntryValue<T> {
 		super(optionName, save);
 
 		this.value = value;
-		this.textField = new WatchedTextfield(this, client.fontRenderer, 0, 0, 98, 18);
-		textField.setText(String.valueOf(value));
-		textField.setValidator(validator);
+		this.textField = new WatchedTextfield(this, client.font, 0, 0, 98, 18);
+		textField.setValue(String.valueOf(value));
+		textField.setFilter(validator);
 	}
 
 	public OptionsEntryValueInput(String optionName, T value, Consumer<T> save) {
@@ -78,27 +78,27 @@ public class OptionsEntryValueInput<T> extends OptionsEntryValue<T> {
 		}
 
 		@Override
-		public void writeText(String string) {
-			super.writeText(string);
-			watcher.setValue(getText());
+		public void insertText(String string) {
+			super.insertText(string);
+			watcher.setValue(getValue());
 		}
 
 		@Override
-		public void setText(String value) {
-			super.setText(value);
-			watcher.setValue(getText());
+		public void setValue(String value) {
+			super.setValue(value);
+			watcher.setValue(getValue());
 		}
 
 		@Override
 		public void deleteWords(int count) {
 			super.deleteWords(count);
-			watcher.setValue(getText());
+			watcher.setValue(getValue());
 		}
 
 		@Override
 		public void setCursorPosition(int pos) {
 			super.setCursorPosition(pos);
-			watcher.setValue(getText());
+			watcher.setValue(getValue());
 		}
 	}
 }
