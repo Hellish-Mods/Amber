@@ -1,5 +1,7 @@
 package snownee.jade;
 
+import com.simibubi.create.content.contraptions.base.KineticBlock;
+
 import mcp.mobius.waila.api.IRegistrar;
 import mcp.mobius.waila.api.IWailaPlugin;
 import mcp.mobius.waila.api.TooltipPosition;
@@ -9,6 +11,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModList;
 import snownee.jade.addon.appliedenergistics2.ChannelProvider;
 import snownee.jade.addon.common.FEProvider;
+import snownee.jade.addon.create.SpeedProvider;
+import snownee.jade.addon.create.StressProvider;
 import snownee.jade.addon.farmersdelight.MushroomColonyAgeProvider;
 import vectorwing.farmersdelight.blocks.MushroomColonyBlock;
 
@@ -37,12 +41,11 @@ public class AmberPlugin implements IWailaPlugin {
 			registrar.addConfig(AE2_CHANNELS, true);
 		}
 
-		// registrar.registerComponentProvider(StressProvider.INSTANCE, TooltipPosition.BODY, KineticBlock.class);
-		// registrar.registerBlockDataProvider(StressProvider.INSTANCE, KineticBlock.class);
-		// registrar.addConfig(CREATE_STRESS, ModList.get().isLoaded("create"));
-		// registrar.registerComponentProvider(SpeedProvider.INSTANCE, TooltipPosition.BODY, KineticBlock.class);
-		// registrar.registerBlockDataProvider(SpeedProvider.INSTANCE, KineticBlock.class);
-		// registrar.addConfig(CREATE_SPEED, ModList.get().isLoaded("create"));
+		registrar.registerComponentProvider(SpeedProvider.INSTANCE, TooltipPosition.BODY, KineticBlock.class);
+		registrar.addConfig(CREATE_SPEED, ModList.get().isLoaded("create"));
+		registrar.registerComponentProvider(StressProvider.INSTANCE, TooltipPosition.BODY, KineticBlock.class);
+		registrar.registerBlockDataProvider(StressProvider.INSTANCE, KineticBlock.class);
+		registrar.addConfig(CREATE_STRESS, ModList.get().isLoaded("create"));
 
 		if (ModList.get().isLoaded("farmersdelight")) {
 			registrar.registerComponentProvider(MushroomColonyAgeProvider.INSTANCE, TooltipPosition.BODY, MushroomColonyBlock.class);

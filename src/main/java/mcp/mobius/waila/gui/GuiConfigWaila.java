@@ -20,6 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceContext.FluidMode;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.fml.ModList;
 
 public class GuiConfigWaila extends GuiOptions {
 
@@ -48,6 +49,7 @@ public class GuiConfigWaila extends GuiOptions {
 					options.add(new OptionsEntryValueBoolean("tts", general.shouldEnableTextToSpeech(), general::setEnableTextToSpeech));
 					options.add(new OptionsEntryValueInput<>("block_blacklist", general.getBlockBlacklistAsString(), general::setBlockBlacklist));
 					options.add(new OptionsEntryValueInput<>("entity_blacklist", general.getEntityBlacklistAsString(), general::setEntityBlacklist));
+					if (ModList.get().isLoaded("create")) options.add(new OptionsEntryValueBoolean("goggles_required", general.areGogglesRequired(), general::setGogglesRequired));
 					return options;
 				}
 			});

@@ -54,6 +54,7 @@ public class WailaConfig {
 		private float reachDistance = 0;
 		private ArrayList<String> blockBlacklist = new ArrayList<>();
 		private ArrayList<String> entityBlacklist = new ArrayList<>();
+		private boolean gogglesRequired = false;
 
 		public void setDisplayTooltip(boolean displayTooltip) {
 			this.displayTooltip = displayTooltip;
@@ -105,6 +106,10 @@ public class WailaConfig {
 
 		public void setEntityBlacklist(String entityBlacklist) {
 			this.entityBlacklist = new ArrayList<>(Arrays.asList(entityBlacklist.replaceAll(" ", "").split(",")));
+		}
+
+		public void setGogglesRequired(Boolean gogglesRequired) {
+			this.gogglesRequired = gogglesRequired;
 		}
 
 		public boolean shouldDisplayTooltip() {
@@ -163,6 +168,10 @@ public class WailaConfig {
 		}
 		public String getEntityBlacklistAsString() {
 			return String.join(",", entityBlacklist);
+		}
+
+		public boolean areGogglesRequired() {
+			return gogglesRequired;
 		}
 
 		public void setReachDistance(float reachDistance) {

@@ -51,6 +51,8 @@
   "config.waila.block_blacklist_desc": "Blocks that will be blacklisted from the info box, comma separated",
   "config.waila.entity_blacklist": "Entity Blacklist",
   "config.waila.entity_blacklist_desc": "Entities that will be blacklisted from the info box, comma separated",
+  "config.walia.goggles_required": "Are Goggles Required?",
+  "config.walia.goggles_required_desc": "Are Engineer's Goggles required for Create-related tooltips?",
 
   "config.waila.overlay": "Overlay",
   "config.waila.overlay_pos_x": "Horizontal Ratio",
