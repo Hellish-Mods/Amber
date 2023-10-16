@@ -2,9 +2,13 @@ package snownee.jade.addon.appliedenergistics2;
 
 import java.util.List;
 
+import appeng.api.networking.GridFlags;
+import appeng.api.networking.IGridConnection;
+import appeng.api.networking.IGridNode;
 import appeng.api.parts.IPart;
 import appeng.api.parts.IPartHost;
 import appeng.parts.networking.IUsedChannelProvider;
+import mcp.mobius.waila.Waila;
 import mcp.mobius.waila.api.IComponentProvider;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.IPluginConfig;
@@ -34,12 +38,22 @@ public class ChannelProvider implements IComponentProvider, IServerDataProvider<
 	public void appendServerData(CompoundNBT tag, ServerPlayerEntity player, World world, TileEntity te) {
         if (!ModList.get().isLoaded("appliedenergistics2") || !(te instanceof IPartHost)) return;
         BlockPos pos = te.getBlockPos();
+
         IPart part = ((IPartHost)te).selectPart(player.pick(20, 0, false).getLocation().add(-pos.getX(), -pos.getY(), -pos.getZ())).part;
+        if (part==null) return;
 
-        if (!(part instanceof IUsedChannelProvider)) return;
-        IUsedChannelProvider partInfo = (IUsedChannelProvider)part;
+        if (Waila.CONFIG.get().getGeneral().getOnlyShowSmartNodes() && !(part instanceof IUsedChannelProvider)) return;
 
-        tag.putInt("usedChannels", partInfo.getUsedChannelsInfo());
-        tag.putInt("maxChannels", partInfo.getMaxChannelsInfo());
+        IGridNode gridNode = part.getGridNode();
+        if (gridNode==null) return;
+
+        int usedChannels = 0;
+        if (gridNode.isActive()) {
+            for (IGridConnection c : gridNode.getConnections()) usedChannels = Math.max(c.getUsedChannels(), usedChannels);
+        }
+        int maxChannels = gridNode.getGridBlock().getFlags().contains(GridFlags.DENSE_CAPACITY) ? 32 : 8;
+
+        tag.putInt("usedChannels", usedChannels);
+        tag.putInt("maxChannels", maxChannels);
     }
 }

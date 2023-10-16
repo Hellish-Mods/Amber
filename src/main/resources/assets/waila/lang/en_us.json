@@ -51,6 +51,8 @@
   "config.waila.block_blacklist_desc": "Blocks that will be blacklisted from the info box, comma separated",
   "config.waila.entity_blacklist": "Entity Blacklist",
   "config.waila.entity_blacklist_desc": "Entities that will be blacklisted from the info box, comma separated",
+  "config.walia.only_show_smart_nodes": "Only Show Smart Nodes (AE2)",
+  "config.walia.only_show_smart_nodes_desc": "Only show channels for blocks that would usually show info about channels (i.e. smart cables)",
   "config.walia.goggles_required": "Are Goggles Required?",
   "config.walia.goggles_required_desc": "Are Engineer's Goggles required for Create-related tooltips?",
 
