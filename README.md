@@ -26,7 +26,9 @@ This is a compatibility-focused fork of the 1.16.5 version of [Jade](https://cur
 
 ![image](https://github.com/Hellish-Mods/Amber/assets/79367505/1e9aaa1d-30b6-45bb-86db-f0dc7412e9ca)
 
-* ~~Create Speed & Stress~~ **NYI**
+* Create Speed & Stress
+
+![image](https://github.com/Hellish-Mods/Amber/assets/79367505/aa14a3ec-a712-4e12-aea1-7336560fca43)
 
 ## Attribution
 
