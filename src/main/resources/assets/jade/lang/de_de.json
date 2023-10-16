@@ -70,7 +70,7 @@
   "config.waila.plugin_amber.ae2_channels": "AE2 Kanäle",
   "amber.ae2_channels": "Kanäle: %d/%d",
   "config.waila.plugin_amber.create_stress": "Create Maschinenstress",
-  "amber.create_stress": "Maschinenstress: %d%",
+  "amber.create_stress": "Maschinenstress: %dsu/%dsu (%d%%)",
   "config.waila.plugin_amber.create_speed": "Create Geschwindigkeit",
   "amber.create_speed": "Geschwindigkeit: %d RPM",
   "config.waila.plugin_amber.fd_mushroom_colony": "Farmer's Delight Alter der Pilzkolonie",

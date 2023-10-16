@@ -64,7 +64,7 @@
   "config.waila.plugin_amber.ae2_channels": "AE2频道数",
   "amber.ae2_channels": "频道数：%d/%d",
   "config.waila.plugin_amber.create_stress": "机械动力机械应力",
-  "amber.create_stress": "应力：%d%",
+  "amber.create_stress": "应力：%dsu/%dsu (%d%%)",
   "config.waila.plugin_amber.create_speed": "机械动力机械转速",
   "amber.create_speed": "机械转速：%d RPM",
   "config.waila.plugin_amber.fd_mushroom_colony": "农夫乐事蘑菇菌落生长阶段",

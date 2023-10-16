@@ -69,7 +69,7 @@
   "config.waila.plugin_amber.ae2_channels": "Каналы AE2",
   "amber.ae2_channels": "Каналы: %d/%d",
   "config.waila.plugin_amber.create_stress": "Create Нагрузка",
-  "amber.create_stress": "Нагрузка: %d%",
+  "amber.create_stress": "Нагрузка: %dsu/%dsu (%d%%)",
   "config.waila.plugin_amber.create_speed": "Create Скорость",
   "amber.create_speed": "Скорость: %d RPM",
   "config.waila.plugin_amber.fd_mushroom_colony": "Возраст колонии грибов (Farmer's Delight)",

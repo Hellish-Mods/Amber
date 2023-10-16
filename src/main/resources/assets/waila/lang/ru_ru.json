@@ -42,6 +42,10 @@
   "config.waila.block_blacklist_desc": "Список блоков, информация о которых НЕ БУДЕТ показана. Для разделения используйте запятую",
   "config.waila.entity_blacklist": "Чёрный список существ",
   "config.waila.entity_blacklist_desc": "Список существ, информация о которых НЕ БУДЕТ показана. Для разделения используйте запятую",
+  "config.walia.only_show_smart_nodes": "Показывать только умные части (AE2)",
+  "config.walia.only_show_smart_nodes_desc": "Показывать только те части ME системы, которые бы обычно показывали кол-во каналов (например, умные кабели)",
+  "config.walia.goggles_required": "Обязательны ли очки?",
+  "config.walia.goggles_required_desc": "Нужны ли инженерные очки чтобы просматривать информацию о скорости/нагрузке?",
 
   "config.waila.overlay": "Оверлей",
   "config.waila.overlay_pos_x": "Отношение по горизонтали",
