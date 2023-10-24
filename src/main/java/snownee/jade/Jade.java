@@ -43,13 +43,15 @@ public class Jade {
 	}
 
 	private void init(FMLCommonSetupEvent event) {
-		JadeCommonConfig.refresh();
+		event.enqueueWork(() -> {
+			JadeCommonConfig.refresh();
+			for (TileEntityType<?> tileEntityType : ForgeRegistries.TILE_ENTITIES) ((ExtendedTileEntityType)tileEntityType).amber$setShouldShowCustomName(JadeCommonConfig.shouldShowCustomName(tileEntityType));
+		});
 	}
 
 	@SuppressWarnings("DataFlowIssue")
 	private void clientSetup(FMLClientSetupEvent event) {
 		event.enqueueWork(() -> {
-			for (TileEntityType<?> tileEntityType : ForgeRegistries.TILE_ENTITIES) ((ExtendedTileEntityType)tileEntityType).amber$setShouldShowCustomName(JadeCommonConfig.shouldShowCustomName(tileEntityType));
 			for (EntityType<?> entityType : ForgeRegistries.ENTITIES) ((WailaBlacklisted)entityType).amber$setIsInWailaBlacklist(entityType.canSerialize() && Waila.CONFIG.get().getGeneral().getEntityBlacklist().contains(entityType.getRegistryName().toString()));
 			for (Item item : ForgeRegistries.ITEMS) ((WailaBlacklisted)item).amber$setIsInWailaBlacklist(Waila.CONFIG.get().getGeneral().getBlockBlacklist().contains(item.getRegistryName().toString()));
 		});
