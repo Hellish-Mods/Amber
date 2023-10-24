@@ -81,6 +81,12 @@ repositories {
     }
 }
 
+
+mixin {
+    add sourceSets.main, "amber.refmap.json"
+    config "amber.mixins.json"
+}
+
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.34'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
@@ -118,7 +124,8 @@ jar {
         attributes([
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConfigs": "amber.mixins.json"
         ])
     }
 }

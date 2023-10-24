@@ -41,7 +41,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fml.ModList;
+import snownee.jade.api.WailaBlacklisted;
 
 public class RayTracing {
 
@@ -130,6 +130,7 @@ public class RayTracing {
 	}
 
 	private boolean canBeTarget(Entity target, Entity viewEntity) {
+		if (((WailaBlacklisted)target.getType()).amber$isInWailaBlacklist()) return false;
 		if (target.isSpectator())
 			return false;
 		if (target == viewEntity.getVehicle())
@@ -142,9 +143,6 @@ public class RayTracing {
 				return false;
 		}
 		if (!target.hasCustomName() && target.getName() instanceof TranslationTextComponent && !I18n.exists(((TranslationTextComponent)target.getName()).getKey())) {
-			return false;
-		}
-		if (Waila.CONFIG.get().getGeneral().getEntityBlacklist().contains(target.getEncodeId())) {
 			return false;
 		}
 		return true;
