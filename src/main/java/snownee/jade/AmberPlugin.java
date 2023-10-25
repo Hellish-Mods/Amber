@@ -40,12 +40,13 @@ public class AmberPlugin implements IWailaPlugin {
 			registrar.registerBlockDataProvider(ChannelProvider.INSTANCE, Block.class);
 			registrar.addConfig(AE2_CHANNELS, true);
 		}
-
-		registrar.registerComponentProvider(SpeedProvider.INSTANCE, TooltipPosition.BODY, KineticBlock.class);
-		registrar.addConfig(CREATE_SPEED, ModList.get().isLoaded("create"));
-		registrar.registerComponentProvider(StressProvider.INSTANCE, TooltipPosition.BODY, KineticBlock.class);
-		registrar.registerBlockDataProvider(StressProvider.INSTANCE, KineticBlock.class);
-		registrar.addConfig(CREATE_STRESS, ModList.get().isLoaded("create"));
+		if (ModList.get().isLoaded("create")) {
+			registrar.registerComponentProvider(SpeedProvider.INSTANCE, TooltipPosition.BODY, KineticBlock.class);
+			registrar.addConfig(CREATE_SPEED, true);
+			registrar.registerComponentProvider(StressProvider.INSTANCE, TooltipPosition.BODY, KineticBlock.class);
+			registrar.registerBlockDataProvider(StressProvider.INSTANCE, KineticBlock.class);
+			registrar.addConfig(CREATE_STRESS, true);
+		}
 
 		if (ModList.get().isLoaded("farmersdelight")) {
 			registrar.registerComponentProvider(MushroomColonyAgeProvider.INSTANCE, TooltipPosition.BODY, MushroomColonyBlock.class);

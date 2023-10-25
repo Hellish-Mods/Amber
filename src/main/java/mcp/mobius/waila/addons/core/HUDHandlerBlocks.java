@@ -29,10 +29,10 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import snownee.jade.Jade;
-import snownee.jade.JadeCommonConfig;
 import snownee.jade.JadePlugin;
 import snownee.jade.Renderables;
 import snownee.jade.addon.vanilla.TrappedChestProvider;
+import snownee.jade.api.ExtendedTileEntityType;
 
 public class HUDHandlerBlocks implements IComponentProvider, IServerDataProvider<TileEntity> {
 
@@ -105,7 +105,7 @@ public class HUDHandlerBlocks implements IComponentProvider, IServerDataProvider
 
 	@Override
 	public void appendServerData(CompoundNBT data, ServerPlayerEntity player, World world, TileEntity t) {
-		if (t instanceof INameable && JadeCommonConfig.shouldShowCustomName(t)) {
+		if (t instanceof INameable && ((ExtendedTileEntityType)t.getType()).amber$shouldShowCustomName()) {
 			INameable nameable = (INameable) t;
 			if (nameable.hasCustomName()) {
 				data.putString("givenName", ITextComponent.Serializer.toJson(nameable.getCustomName()));

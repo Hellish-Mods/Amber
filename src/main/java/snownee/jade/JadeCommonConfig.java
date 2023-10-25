@@ -8,14 +8,16 @@ import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Sets;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.registries.ForgeRegistries;
 import snownee.jade.addon.vanilla.InventoryProvider;
+import snownee.jade.api.ExtendedTileEntityType;
 
 public final class JadeCommonConfig {
 
@@ -68,19 +70,22 @@ public final class JadeCommonConfig {
 	public static void onConfigReload(ModConfig.Reloading event) {
 		((CommentedFileConfig) event.getConfig().getConfigData()).load();
 		refresh();
+		for (TileEntityType<?> tileEntityType : ForgeRegistries.TILE_ENTITIES) {
+			((ExtendedTileEntityType)tileEntityType).amber$setShouldShowCustomName(shouldShowCustomName(tileEntityType));
+		}
 	}
 
 	public static boolean shouldIgnoreTE(String id) {
 		return inventoryBlacklist.contains(id);
 	}
 
-	public static boolean shouldShowCustomName(TileEntity t) {
-		String modid = t.getType().getRegistryName().getNamespace();
+	@SuppressWarnings("DataFlowIssue")
+	public static boolean shouldShowCustomName(TileEntityType<?> t) {
+		String modid = t.getRegistryName().getNamespace();
 		if (onlyShowVanilla) {
 			return modid.equals("minecraft");
 		} else {
 			return !modBlacklist.contains(modid);
 		}
 	}
-
 }

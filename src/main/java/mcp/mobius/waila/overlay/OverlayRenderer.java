@@ -1,6 +1,6 @@
 package mcp.mobius.waila.overlay;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -23,6 +23,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.common.MinecraftForge;
+import snownee.jade.api.WailaBlacklisted;
 
 public class OverlayRenderer {
 
@@ -71,7 +72,7 @@ public class OverlayRenderer {
 		if (mc.options.renderDebug && Waila.CONFIG.get().getGeneral().shouldHideFromDebug())
 			return;
 
-		if (RayTracing.INSTANCE.getTarget().getType() == RayTraceResult.Type.BLOCK && !Waila.CONFIG.get().getGeneral().getBlockBlacklist().contains(RayTracing.INSTANCE.getTargetStack().getItem().getRegistryName().toString()))
+		if (RayTracing.INSTANCE.getTarget().getType() == RayTraceResult.Type.BLOCK && !((WailaBlacklisted)RayTracing.INSTANCE.getTargetStack().getItem()).amber$isInWailaBlacklist())
 			renderOverlay(WailaTickHandler.instance().tooltip, new MatrixStack());
 
 		if (RayTracing.INSTANCE.getTarget().getType() == RayTraceResult.Type.ENTITY && PluginConfig.INSTANCE.get(PluginCore.CONFIG_SHOW_ENTITY))
