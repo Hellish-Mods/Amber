@@ -96,8 +96,8 @@ public class OptionsEntryValueInput<T> extends OptionsEntryValue<T> {
 		}
 
 		@Override
-		public void setCursorPosition(int pos) {
-			super.setCursorPosition(pos);
+		public void moveCursorTo(int pos) {
+			super.moveCursorTo(pos);
 			watcher.setValue(getValue());
 		}
 	}

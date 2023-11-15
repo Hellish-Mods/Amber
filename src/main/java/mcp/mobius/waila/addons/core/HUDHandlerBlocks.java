@@ -50,7 +50,7 @@ public class HUDHandlerBlocks implements IComponentProvider, IServerDataProvider
 		if (name == null && accessor.getBlockState().is(Jade.PICK)) {
 			ItemStack pick = accessor.getBlockState().getPickBlock(accessor.getHitResult(), accessor.getWorld(), accessor.getPosition(), accessor.getPlayer());
 			if (pick != null && !pick.isEmpty())
-				name = pick.getDisplayName();
+				name = pick.getHoverName();
 		}
 		if (name == null) {
 			String key = accessor.getBlock().getDescriptionId();
@@ -59,7 +59,7 @@ public class HUDHandlerBlocks implements IComponentProvider, IServerDataProvider
 			} else {
 				ItemStack stack = accessor.getBlockState().getPickBlock(accessor.getHitResult(), accessor.getWorld(), accessor.getPosition(), accessor.getPlayer());
 				if (stack != null && !stack.isEmpty()) {
-					name = stack.getDisplayName();
+					name = stack.getHoverName();
 				} else {
 					name = new StringTextComponent(key);
 				}

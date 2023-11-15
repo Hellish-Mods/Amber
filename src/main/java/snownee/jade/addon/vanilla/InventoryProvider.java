@@ -85,7 +85,7 @@ public class InventoryProvider implements IComponentProvider, IServerDataProvide
 
 				components.add(Renderables.item(stack));
 				if (showName) {
-					components.add(Renderables.offsetText(stack.getDisplayName(), 0, 4));
+					components.add(Renderables.offsetText(stack.getHoverName(), 0, 4));
 				}
 				drawnCount += 1;
 			}

@@ -60,7 +60,7 @@ public class HUDHandlerVanilla implements IComponentProvider, IServerDataProvide
 	public void appendHead(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
 		Block block = accessor.getBlock();
 		if (config.get(PluginMinecraft.CONFIG_HIDE_SILVERFISH) && block instanceof SilverfishBlock)
-			((ITaggableList<ResourceLocation, ITextComponent>) tooltip).setTag(OBJECT_NAME_TAG, new StringTextComponent(String.format(Waila.CONFIG.get().getFormatting().getBlockName(), accessor.getStack().getDisplayName().getString())));
+			((ITaggableList<ResourceLocation, ITextComponent>) tooltip).setTag(OBJECT_NAME_TAG, new StringTextComponent(String.format(Waila.CONFIG.get().getFormatting().getBlockName(), accessor.getStack().getHoverName().getString())));
 
 		if (block == Blocks.SPAWNER && config.get(PluginMinecraft.CONFIG_SPAWNER_TYPE)) {
 			MobSpawnerTileEntity spawner = (MobSpawnerTileEntity) accessor.getTileEntity();
@@ -114,7 +114,7 @@ public class HUDHandlerVanilla implements IComponentProvider, IServerDataProvide
 				try {
 					Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(accessor.getServerData().getString("record")));
 					if (item instanceof MusicDiscItem) {
-						tooltip.add(new TranslationTextComponent("record.nowPlaying", ((MusicDiscItem) item).getDescription()));
+						tooltip.add(new TranslationTextComponent("record.nowPlaying", ((MusicDiscItem) item).getDisplayName()));
 					}
 				} catch (Exception e) {
 					Waila.LOGGER.catching(e);

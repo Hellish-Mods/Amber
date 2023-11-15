@@ -21,7 +21,7 @@ public class ItemFrameProvider implements IEntityComponentProvider {
 		ItemFrameEntity itemFrame = (ItemFrameEntity) accessor.getEntity();
 		ItemStack stack = itemFrame.getItem();
 		if (!stack.isEmpty()) {
-			tooltip.add(stack.getDisplayName());
+			tooltip.add(stack.getHoverName());
 		}
 	}
 }

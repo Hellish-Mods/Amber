@@ -69,7 +69,7 @@ public class DisplayUtil {
 		TextureManager textureManager = CLIENT.textureManager;
 		RenderSystem.pushMatrix();
 		textureManager.bind(AtlasTexture.LOCATION_BLOCKS);
-		textureManager.getTexture(AtlasTexture.LOCATION_BLOCKS).setBlurMipmap(false, false);
+		textureManager.getTexture(AtlasTexture.LOCATION_BLOCKS).setFilter(false, false);
 		RenderSystem.enableRescaleNormal();
 		RenderSystem.enableAlphaTest();
 		RenderSystem.defaultAlphaFunc();

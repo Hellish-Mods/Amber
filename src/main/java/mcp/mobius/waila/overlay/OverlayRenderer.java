@@ -58,8 +58,8 @@ public class OverlayRenderer {
 				return;
 			} else {
 				Rectangle position = WailaTickHandler.instance().tooltip.getPosition();
-				double x = mc.mouseHandler.xpos() * (double) mc.getWindow().getGuiScaledWidth() / mc.getWindow().getWidth();
-				double y = mc.mouseHandler.ypos() * (double) mc.getWindow().getGuiScaledHeight() / mc.getWindow().getHeight();
+				double x = mc.mouseHandler.xpos() * (double) mc.getWindow().getGuiScaledWidth() / mc.getWindow().getScreenHeight();
+				double y = mc.mouseHandler.ypos() * (double) mc.getWindow().getGuiScaledHeight() / mc.getWindow().getScreenHeight();
 				if (position.contains(x, y)) {
 					return;
 				}
@@ -83,7 +83,7 @@ public class OverlayRenderer {
 		RenderSystem.pushMatrix();
 		RenderSystem.rotatef(-30.0F, 0.0F, 1.0F, 0.0F);
 		RenderSystem.rotatef(165.0F, 1.0F, 0.0F, 0.0F);
-		RenderHelper.turnBackOn();
+		RenderHelper.turnOff();
 		RenderSystem.popMatrix();
 	}
 

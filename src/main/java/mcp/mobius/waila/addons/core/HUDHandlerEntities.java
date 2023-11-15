@@ -36,7 +36,7 @@ public class HUDHandlerEntities implements IEntityComponentProvider {
 	public static String getEntityName(Entity entity) {
 		if (!entity.hasCustomName()) {
 			if (entity instanceof ItemEntity) {
-				return ((ItemEntity) entity).getItem().getDisplayName().getString();
+				return ((ItemEntity) entity).getItem().getHoverName().getString();
 			}
 		}
 		return entity.getName().getString();

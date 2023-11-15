@@ -39,7 +39,7 @@ public class RenderableTextComponent extends StringTextComponent {
 			list.forEach(t -> {
 				StringNBT stringTag = (StringNBT) t;
 				try {
-					CompoundNBT tag = JsonToNBT.parseTag(stringTag.toString());
+					CompoundNBT tag = JsonToNBT.parseTag(stringTag.getAsString());
 					ResourceLocation id = new ResourceLocation(tag.getString("id"));
 					CompoundNBT dataTag = tag.getCompound("data");
 					renderers.add(new RenderContainer(id, dataTag));
