@@ -25,8 +25,9 @@ public class SubStringTooltipRenderer implements ITooltipRenderer {
 
 	@Override
 	public void draw(CompoundNBT tag, ICommonAccessor accessor, int x, int y) {
+		Minecraft mc = Minecraft.getInstance();
 		String s = tag.getString("text");
-		FontRenderer fontRenderer = Minecraft.getInstance().font;
+		FontRenderer fontRenderer = mc.font;
 		WailaConfig.ConfigOverlay.ConfigOverlayColor color = Waila.CONFIG.get().getOverlay().getColor();
 		MatrixStack matrixStack = new MatrixStack();
 		if (PluginConfig.INSTANCE.get(JadePlugin.HARVEST_TOOL_NEW_LINE)) {

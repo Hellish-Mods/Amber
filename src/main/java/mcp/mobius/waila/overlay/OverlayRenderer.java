@@ -79,6 +79,7 @@ public class OverlayRenderer {
 			renderOverlay(WailaTickHandler.instance().tooltip, new MatrixStack());
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void enableGUIStandardItemLighting() {
 		RenderSystem.pushMatrix();
 		RenderSystem.rotatef(-30.0F, 0.0F, 1.0F, 0.0F);
@@ -87,6 +88,7 @@ public class OverlayRenderer {
 		RenderSystem.popMatrix();
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void renderOverlay(Tooltip tooltip, MatrixStack matrixStack) {
 		Minecraft.getInstance().getProfiler().push("Waila Overlay");
 		RenderContext.matrixStack = matrixStack;
@@ -160,6 +162,7 @@ public class OverlayRenderer {
 		GL11.glPushAttrib(GL11.GL_CURRENT_BIT); // Leave me alone :(
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void loadGLState() {
 		RenderSystem.depthMask(depthMask);
 		RenderSystem.depthFunc(depthFunc);

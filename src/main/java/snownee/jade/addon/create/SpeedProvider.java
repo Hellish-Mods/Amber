@@ -1,9 +1,7 @@
 package snownee.jade.addon.create;
 
-import java.util.Arrays;
 import java.util.List;
 
-import com.google.common.collect.Iterables;
 import com.simibubi.create.content.contraptions.base.KineticTileEntity;
 import com.simibubi.create.content.contraptions.goggles.GogglesItem;
 

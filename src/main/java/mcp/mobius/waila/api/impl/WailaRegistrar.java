@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.*;
 
+@SuppressWarnings("rawtypes")
 public class WailaRegistrar implements IRegistrar {
 
 	public static final WailaRegistrar INSTANCE = new WailaRegistrar();
@@ -106,7 +107,7 @@ public class WailaRegistrar implements IRegistrar {
 		this.tooltipRenderers.put(id, renderer);
 	}
 
-	private <T, V extends Class<?>> void registerProvider(T dataProvider, V clazz, Map<V, List<T>> target) {
+	private <T, V> void registerProvider(T dataProvider, V clazz, Map<V, List<T>> target) {
 		if (clazz == null || dataProvider == null)
 			throw new RuntimeException(String.format("Trying to register a null provider or null block ! Please check the stacktrace to know what was the original registration method. [Provider : %s, Target : %s]", dataProvider.getClass().getName(), clazz));
 

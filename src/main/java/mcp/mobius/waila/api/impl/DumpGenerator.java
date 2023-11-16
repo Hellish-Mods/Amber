@@ -7,7 +7,7 @@ import mcp.mobius.waila.api.TooltipPosition;
 
 @SuppressWarnings("unchecked")
 public class DumpGenerator {
-
+	@SuppressWarnings("rawtypes")
 	public static String generateInfoDump() {
 		StringBuilder builder = new StringBuilder("# Waila Handler Dump");
 
@@ -29,7 +29,8 @@ public class DumpGenerator {
 
 		return builder.toString();
 	}
-
+	
+	@SuppressWarnings("rawtypes")
 	private static void createSection(StringBuilder builder, String subsection, Map<Class, List<Object>> providers) {
 		if (providers.isEmpty())
 			return;

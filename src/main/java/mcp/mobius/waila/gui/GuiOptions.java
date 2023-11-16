@@ -66,6 +66,7 @@ public abstract class GuiOptions extends Screen {
 	}
 
 	@Override
+	@SuppressWarnings("rawtypes")
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		renderBackground(matrixStack);
 		options.render(matrixStack, mouseX, mouseY, partialTicks);
@@ -93,7 +94,7 @@ public abstract class GuiOptions extends Screen {
 	}
 
 	@Override
-	public IGuiEventListener addWidget(IGuiEventListener listener) {
+	public <T extends IGuiEventListener> T addWidget(T listener) {
 		children.add(listener);
 		return listener;
 	}

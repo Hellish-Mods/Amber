@@ -18,19 +18,21 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class StringTooltipRenderer implements ITooltipRenderer {
 	@Override
 	public Dimension getSize(CompoundNBT tag, ICommonAccessor accessor) {
+		Minecraft mc = Minecraft.getInstance();
 		int ox = tag.getInt("x");
 		int oy = tag.getInt("y");
 		String s = tag.getString("text");
-		FontRenderer fontRenderer = Minecraft.getInstance().font;
+		FontRenderer fontRenderer = mc.font;
 		return new Dimension(ox + fontRenderer.width(s), oy + (s.isEmpty() ? 0 : 8));
 	}
 
 	@Override
 	public void draw(CompoundNBT tag, ICommonAccessor accessor, int x, int y) {
+		Minecraft mc = Minecraft.getInstance();
 		int ox = tag.getInt("x");
 		int oy = tag.getInt("y");
 		String s = tag.getString("text");
-		FontRenderer fontRenderer = Minecraft.getInstance().font;
+		FontRenderer fontRenderer = mc.font;
 		WailaConfig.ConfigOverlay.ConfigOverlayColor color = Waila.CONFIG.get().getOverlay().getColor();
 		fontRenderer.drawShadow(new MatrixStack(), s, x + ox, y + oy, color.getFontColor());
 	}

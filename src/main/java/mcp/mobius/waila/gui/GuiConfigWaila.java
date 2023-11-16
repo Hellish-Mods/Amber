@@ -29,6 +29,7 @@ public class GuiConfigWaila extends GuiOptions {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public OptionsListWidget getOptions() {
 		ConfigGeneral general = Waila.CONFIG.get().getGeneral();
 		ConfigOverlay overlay = Waila.CONFIG.get().getOverlay();

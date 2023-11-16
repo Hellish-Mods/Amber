@@ -157,19 +157,21 @@ public class WailaTickHandler {
 
 	@SubscribeEvent
 	public static void onTooltip(WailaTooltipEvent event) {
+		Minecraft mc = Minecraft.getInstance();
+
 		if (event.getCurrentTip().isEmpty())
 			return;
 
 		if (!getNarrator().active() || !Waila.CONFIG.get().getGeneral().shouldEnableTextToSpeech())
 			return;
 
-		if (Minecraft.getInstance().screen != null && Minecraft.getInstance().options.chatVisibility != ChatVisibility.HIDDEN)
+		if (mc.screen != null && mc.options.chatVisibility != ChatVisibility.HIDDEN)
 			return;
 
 		if (event.getAccessor().getBlock() == Blocks.AIR && event.getAccessor().getEntity() == null)
 			return;
 
-		if (Minecraft.getInstance().level != null && Minecraft.getInstance().level.getGameTime() % 5 > 0) {
+		if (mc.level != null && mc.level.getGameTime() % 5 > 0) {
 			return;
 		}
 

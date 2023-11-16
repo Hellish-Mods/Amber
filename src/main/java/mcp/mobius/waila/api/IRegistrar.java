@@ -31,6 +31,7 @@ public interface IRegistrar {
      * @param dataProvider The data provider instance
      * @param block The highest level class to apply to
      */
+	@SuppressWarnings("rawtypes")
 	void registerStackProvider(IComponentProvider dataProvider, Class block);
 
 	/**
@@ -42,6 +43,7 @@ public interface IRegistrar {
      * @param position The position on the tooltip this applies to
      * @param block The highest level class to apply to
      */
+	@SuppressWarnings("rawtypes")
 	void registerComponentProvider(IComponentProvider dataProvider, TooltipPosition position, Class block);
 
 	/**
@@ -51,6 +53,7 @@ public interface IRegistrar {
 	 * @param dataProvider The data provider instance
 	 * @param block The highest level class to apply to
 	 */
+	@SuppressWarnings("rawtypes")
 	void registerBlockDataProvider(IServerDataProvider<TileEntity> dataProvider, Class block);
 
 	/**
@@ -59,6 +62,7 @@ public interface IRegistrar {
      * @param dataProvider The data provider instance
      * @param entity The highest level class to apply to
      */
+	@SuppressWarnings("rawtypes")
 	void registerOverrideEntityProvider(IEntityComponentProvider dataProvider, Class entity);
 
 	/**
@@ -67,6 +71,7 @@ public interface IRegistrar {
      * @param dataProvider The data provider instance
      * @param entity The highest level class to apply to
      */
+	@SuppressWarnings("rawtypes")
 	void registerEntityStackProvider(IEntityComponentProvider dataProvider, Class entity);
 
 	/**
@@ -77,6 +82,7 @@ public interface IRegistrar {
      * @param position The position on the tooltip this applies to
      * @param entity The highest level class to apply to
      */
+	@SuppressWarnings("rawtypes")
 	void registerComponentProvider(IEntityComponentProvider dataProvider, TooltipPosition position, Class entity);
 
 	/**
@@ -85,6 +91,7 @@ public interface IRegistrar {
      * @param dataProvider The data provider instance
      * @param entity The highest level class to apply to
      */
+	@SuppressWarnings("rawtypes")
 	void registerEntityDataProvider(IServerDataProvider<Entity> dataProvider, Class entity);
 
 	/**
@@ -93,6 +100,7 @@ public interface IRegistrar {
      * @param decorator The decorator instance
      * @param block The highest level class to apply to
      */
+	@SuppressWarnings("rawtypes")
 	void registerDecorator(IBlockDecorator decorator, Class block);
 
 	/**

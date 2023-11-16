@@ -64,6 +64,7 @@ public class DisplayUtil {
 		renderItemModelIntoGUI(stack, x, y, renderer.getModel(stack, (World) null, (LivingEntity) null), scale);
 	}
 
+	@SuppressWarnings("deprecation")
 	protected static void renderItemModelIntoGUI(ItemStack stack, int x, int y, IBakedModel bakedmodel, float scale) {
 		ItemRenderer renderer = CLIENT.getItemRenderer();
 		TextureManager textureManager = CLIENT.textureManager;
@@ -99,6 +100,7 @@ public class DisplayUtil {
 		RenderSystem.popMatrix();
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void renderStackSize(MatrixStack matrixStack, FontRenderer fr, ItemStack stack, int xPosition, int yPosition) {
 		if (!stack.isEmpty() && stack.getCount() != 1) {
 			String s = shortHandNumber(stack.getCount());
@@ -106,11 +108,12 @@ public class DisplayUtil {
 			if (stack.getCount() < 1)
 				s = TextFormatting.RED + String.valueOf(stack.getCount());
 
+			Minecraft mc = Minecraft.getInstance();
 			RenderSystem.disableLighting();
 			RenderSystem.disableDepthTest();
 			RenderSystem.disableBlend();
 			matrixStack.pushPose();
-			matrixStack.translate(0, 0, Minecraft.getInstance().getItemRenderer().blitOffset + 200F);
+			matrixStack.translate(0, 0, mc.getItemRenderer().blitOffset + 200F);
 			fr.drawShadow(matrixStack, s, xPosition + 19 - 2 - fr.width(s), yPosition + 6 + 3, 16777215);
 			matrixStack.popPose();
 			RenderSystem.enableLighting();
@@ -128,16 +131,19 @@ public class DisplayUtil {
 		return shorthand;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void enable3DRender() {
 		RenderSystem.enableLighting();
 		RenderSystem.enableDepthTest();
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void enable2DRender() {
 		RenderSystem.disableLighting();
 		RenderSystem.disableDepthTest();
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void drawGradientRect(MatrixStack matrixStack, int left, int top, int right, int bottom, int startColor, int endColor) {
 		float zLevel = 0.0F;
 		Matrix4f matrix = matrixStack.last().pose();
@@ -204,6 +210,7 @@ public class DisplayUtil {
 		return namelist;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void renderIcon(MatrixStack matrixStack, int x, int y, int sx, int sy, IconUI icon) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		CLIENT.getTextureManager().bind(AbstractGui.GUI_ICONS_LOCATION);

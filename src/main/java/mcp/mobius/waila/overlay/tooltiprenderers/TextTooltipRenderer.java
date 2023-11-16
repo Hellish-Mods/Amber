@@ -25,7 +25,8 @@ public class TextTooltipRenderer implements ITooltipRenderer {
 		if (component == null) {
 			return new Dimension();
 		}
-		FontRenderer fontRenderer = Minecraft.getInstance().font;
+		Minecraft mc = Minecraft.getInstance();
+		FontRenderer fontRenderer = mc.font;
 		return new Dimension(fontRenderer.width(component.getString()), fontRenderer.lineHeight + 1);
 	}
 
@@ -35,7 +36,8 @@ public class TextTooltipRenderer implements ITooltipRenderer {
 		if (component == null) {
 			return;
 		}
-		FontRenderer fontRenderer = Minecraft.getInstance().font;
+		Minecraft mc = Minecraft.getInstance();
+		FontRenderer fontRenderer = mc.font;
 		WailaConfig.ConfigOverlay.ConfigOverlayColor color = Waila.CONFIG.get().getOverlay().getColor();
 		IRenderTypeBuffer.Impl irendertypebuffer$impl = IRenderTypeBuffer.immediate(Tessellator.getInstance().getBuilder());
 		fontRenderer.drawInBatch(component.getVisualOrderText(), x, y, color.getFontColor(), true, new MatrixStack().last().pose(), irendertypebuffer$impl, false, 0, 15728880);

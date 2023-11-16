@@ -65,6 +65,7 @@ public class Tooltip {
 		totalSize.height += 8;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void draw() {
 		Rectangle position = getPosition();
 		WailaConfig.ConfigOverlay.ConfigOverlayColor color = Waila.CONFIG.get().getOverlay().getColor();

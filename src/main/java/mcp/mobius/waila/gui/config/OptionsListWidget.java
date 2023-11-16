@@ -41,6 +41,7 @@ public class OptionsListWidget extends AbstractList<OptionsListWidget.Entry> {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
 		this.renderBackground(matrixStack);
 		int scrollPosX = this.getScrollbarPosition();
@@ -117,12 +118,14 @@ public class OptionsListWidget extends AbstractList<OptionsListWidget.Entry> {
 		RenderSystem.disableBlend();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void save() {
 		children().stream().filter(e -> e instanceof OptionsEntryValue).map(e -> (OptionsEntryValue) e).forEach(OptionsEntryValue::save);
 		if (diskWriter != null)
 			diskWriter.run();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void add(Entry entry) {
 		if (entry instanceof OptionsEntryValue) {
 			IGuiEventListener element = ((OptionsEntryValue) entry).getListener();
