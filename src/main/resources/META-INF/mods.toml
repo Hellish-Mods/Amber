@@ -5,7 +5,7 @@ license="CC BY-NC-SA 4.0"
 issueTrackerURL="https://github.com/Hellish-Mods/amber"
 
 [[mods]]
-modId="jade"
+modId="amber"
 version="${file.jarVersion}"
 
 displayName="Amber"
@@ -46,6 +46,13 @@ description="A fork of Jade, which is a fork of HWYLA, which is a fork of WALIA.
 [[mods]]
 modId="waila"
 version="${file.jarVersion}"
-displayName="Waila (Jade)"
+displayName="Waila (Amber)"
 authors="Snownee, TehNut, ProfMobius"
-description="You are using Jade, a fork of Hwyla."
+description="You are using Amber, a fork of Jade, a fork of Hwyla."
+
+[[mods]]
+modId="jade"
+version="2.8.3"
+displayName="Jade (Amber)"
+authors="Snownee"
+description="You are using Amber, a fork of Jade."
