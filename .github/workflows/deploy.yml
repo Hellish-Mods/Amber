@@ -19,7 +19,7 @@ on:
       deps:
         description: "Dependencies"
         required: false
-        default: "jade(incompatible),jei(optional),mcjtylib(optional),applied-energistics-2(optional),ae2(optional),farmers-delight(optional),create(optional);"
+        default: "jade(incompatible),jei(optional),mcjtylib(optional),applied-energistics-2(optional),ae2(optional),farmers-delight(optional),create(optional)"
       assets:
         type: boolean
         description: "Generate assets"
