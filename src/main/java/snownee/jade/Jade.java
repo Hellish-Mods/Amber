@@ -27,8 +27,8 @@ import snownee.jade.api.WailaBlacklisted;
 
 @Mod(Jade.MODID)
 public class Jade {
-	public static final String MODID = "jade";
-	public static final String NAME = "Jade";
+	public static final String MODID = "amber";
+	public static final String NAME = "Amber";
 	public static DecimalFormat dfCommas = new DecimalFormat("##.##");
 	public static final INamedTag<Block> PICK = BlockTags.createOptional(new ResourceLocation(MODID, "pick"));
 
