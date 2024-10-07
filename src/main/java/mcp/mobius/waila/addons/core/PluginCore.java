@@ -23,7 +23,7 @@ public class PluginCore implements IWailaPlugin {
 	public static final ResourceLocation CONFIG_SHOW_REGISTRY = new ResourceLocation(Waila.MODID, "show_registry");
 	public static final ResourceLocation CONFIG_SHOW_ENTITY = new ResourceLocation(Waila.MODID, "show_entities");
 	public static final ResourceLocation CONFIG_SHOW_ENTITY_HEALTH = new ResourceLocation(Waila.MODID, "show_entity_hp");
-	public static final ResourceLocation CONFIG_SHOW_ENTITY_ARMOR = new ResourceLocation(Jade.MODID, "show_entity_armor");
+	public static final ResourceLocation CONFIG_SHOW_ENTITY_ARMOR = new ResourceLocation("jade", "show_entity_armor");
 	public static final ResourceLocation CONFIG_SHOW_STATES = new ResourceLocation(Waila.MODID, "show_states");
 
 	@Override

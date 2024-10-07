@@ -16,9 +16,9 @@ public final class Renderables {
 	static final ResourceLocation ITEM = new ResourceLocation("item");
 	static final ResourceLocation SPACER = new ResourceLocation("spacer");
 
-	static final ResourceLocation OFFSET_TEXT = new ResourceLocation(Jade.MODID, "text");
-	static final ResourceLocation BORDER = new ResourceLocation(Jade.MODID, "border");
-	static final ResourceLocation SUB = new ResourceLocation(Jade.MODID, "sub");
+	static final ResourceLocation OFFSET_TEXT = new ResourceLocation("jade", "text");
+	static final ResourceLocation BORDER = new ResourceLocation("jade", "border");
+	static final ResourceLocation SUB = new ResourceLocation("jade", "sub");
 
 	public static RenderableTextComponent item(ItemStack stack) {
 		return item(stack, 1, 0);

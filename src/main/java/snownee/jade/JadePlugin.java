@@ -51,7 +51,7 @@ import snownee.jade.addon.vanilla.VillagerProfessionProvider;
 public class JadePlugin implements IWailaPlugin {
 
 	private static ResourceLocation RL(String path) {
-		return new ResourceLocation(Jade.MODID, path);
+		return new ResourceLocation("jade", path);
 	}
 
 	public static final ResourceLocation INVENTORY = RL("inventory");

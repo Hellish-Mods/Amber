@@ -21,7 +21,7 @@ import snownee.jade.Jade;
 @JeiPlugin
 public class JEICompat implements IModPlugin {
 
-	public static final ResourceLocation ID = new ResourceLocation(Jade.MODID, "main");
+	public static final ResourceLocation ID = new ResourceLocation("jade", "main");
 	public static KeyBinding showRecipes;
 	public static KeyBinding showUses;
 
