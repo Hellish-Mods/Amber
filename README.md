@@ -2,7 +2,7 @@
 ### Orange gem turned WAILA fork.
 
 [![cf](https://cf.way2muchnoise.eu/full_amber-jade_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/amber-jade)
-[![actions](https://github.com/hellish-mods/amber/actions/workflows/build.yml/badge.svg)](https://github.com/hellish-mods/amber)
+[![actions](https://github.com/hellish-mods/amber/actions/workflows/deploy.yml/badge.svg)](https://github.com/hellish-mods/amber)
 
 [![logo](https://raw.githubusercontent.com/Hellish-Mods/amber/main/src/main/resources/pack.png)](https://www.curseforge.com/minecraft/mc-mods/amber-jade)
 
